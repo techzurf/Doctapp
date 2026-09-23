@@ -36,14 +36,14 @@ export const DoctorProfileScreen: React.FC<DoctorProfileScreenProps> = ({
   const [selectedSlotIndex, setSelectedSlotIndex] = useState(0);
 
   return (
-    <div id="doctor-profile-screen" className="pb-28 pt-2 px-4 max-w-lg mx-auto space-y-5">
+    <div id="doctor-profile-screen" className="pb-28 pt-2 px-4 max-w-lg mx-auto w-full min-w-0 space-y-5">
       {/* Top Navigation */}
       <div className="flex items-center justify-between py-2">
         <button
           type="button"
           id="doctor-profile-back-btn"
           onClick={onBack}
-          className="p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-sm text-[#12302D] hover:bg-slate-50 transition-colors"
+          className="p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-sm text-[#12302D] hover:bg-slate-50 transition-colors shrink-0"
           aria-label="Go back"
         >
           <ArrowLeft className="w-4 h-4" />
@@ -55,7 +55,7 @@ export const DoctorProfileScreen: React.FC<DoctorProfileScreenProps> = ({
               type="button"
               id="share-doctor-btn"
               onClick={onShare}
-              className="p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-sm text-[#12302D] hover:bg-slate-50 transition-colors"
+              className="p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-sm text-[#12302D] hover:bg-slate-50 transition-colors shrink-0"
               aria-label="Share profile"
             >
               <Share2 className="w-4 h-4" />
@@ -66,7 +66,7 @@ export const DoctorProfileScreen: React.FC<DoctorProfileScreenProps> = ({
               type="button"
               id="save-doctor-btn"
               onClick={onToggleSave}
-              className={`p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-sm transition-colors ${
+              className={`p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-sm transition-colors shrink-0 ${
                 isSaved ? 'text-rose-500 fill-rose-500' : 'text-[#12302D] hover:bg-slate-50'
               }`}
               aria-label="Save doctor"
@@ -78,39 +78,39 @@ export const DoctorProfileScreen: React.FC<DoctorProfileScreenProps> = ({
       </div>
 
       {/* Doctor Hero Card */}
-      <div className="bg-white rounded-3xl p-5 border border-slate-200/80 shadow-sm space-y-4">
-        <div className="flex items-start gap-4">
+      <div className="bg-white rounded-3xl p-4 sm:p-5 border border-slate-200/80 shadow-sm space-y-4">
+        <div className="flex items-start gap-3 sm:gap-4">
           <div className="relative shrink-0">
             <img
               src={doctor.photoUrl}
               alt={doctor.name}
-              className="w-20 h-20 rounded-2xl object-cover ring-2 ring-[#0F766E]/20"
+              className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover ring-2 ring-[#0F766E]/20"
             />
             {doctor.isVerified && (
               <span className="absolute -bottom-1.5 -right-1.5 p-1 rounded-full bg-[#0F766E] text-white ring-2 ring-white shadow-sm">
-                <ShieldCheck className="w-4 h-4" />
+                <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </span>
             )}
           </div>
 
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-1.5 mb-1">
-              <span className="px-2 py-0.5 rounded-md bg-teal-50 text-[#0F766E] text-[10px] font-bold">
-                ✓ Verified Muslim Practitioner
+              <span className="px-2 py-0.5 rounded-md bg-teal-50 text-[#0F766E] text-[10px] font-bold truncate">
+                ✓ Verified Practitioner
               </span>
             </div>
-            <h1 className="text-base font-extrabold text-[#12302D] tracking-tight">
+            <h1 className="text-base font-extrabold text-[#12302D] tracking-tight truncate">
               {doctor.name}
             </h1>
-            <p className="text-xs text-[#0F766E] font-medium">
+            <p className="text-xs text-[#0F766E] font-medium truncate">
               {doctor.degrees}
             </p>
-            <p className="text-xs font-bold text-slate-700">
+            <p className="text-xs font-bold text-slate-700 truncate">
               {doctor.specialty}
             </p>
-            <p className="text-xs text-slate-500 flex items-center gap-1 mt-1">
-              <MapPin className="w-3.5 h-3.5 text-[#0F766E]" />
-              {doctor.location}
+            <p className="text-xs text-slate-500 flex items-center gap-1 mt-1 truncate">
+              <MapPin className="w-3.5 h-3.5 text-[#0F766E] shrink-0" />
+              <span className="truncate">{doctor.location}</span>
             </p>
           </div>
         </div>
@@ -293,10 +293,10 @@ export const DoctorProfileScreen: React.FC<DoctorProfileScreenProps> = ({
       </div>
 
       {/* STICKY BOTTOM BAR WITH FEE AND CTA */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200/80 p-4 pb-[env(safe-area-inset-bottom,16px)] shadow-lg">
-        <div className="max-w-lg mx-auto flex items-center justify-between gap-4">
-          <div>
-            <span className="text-[10px] font-semibold text-slate-400 block uppercase tracking-wider">
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200/80 p-4 pb-[env(safe-area-inset-bottom,16px)] shadow-lg w-full">
+        <div className="max-w-lg mx-auto flex items-center justify-between gap-3 w-full min-w-0">
+          <div className="min-w-0 shrink-0">
+            <span className="text-[10px] font-semibold text-slate-400 block uppercase tracking-wider truncate">
               Consultation Fee
             </span>
             <div className="flex items-baseline gap-1">
@@ -311,7 +311,7 @@ export const DoctorProfileScreen: React.FC<DoctorProfileScreenProps> = ({
             type="button"
             id="profile-sticky-book-btn"
             onClick={() => onBook(doctor)}
-            className="flex-1 py-3.5 px-6 rounded-2xl bg-[#0F766E] hover:bg-[#0D655E] text-white text-xs font-bold shadow-md shadow-teal-900/15 active:scale-95 transition-all text-center"
+            className="flex-1 min-w-0 py-3.5 px-4 sm:px-6 rounded-2xl bg-[#0F766E] hover:bg-[#0D655E] text-white text-xs font-bold shadow-md shadow-teal-900/15 active:scale-95 transition-all text-center truncate"
           >
             Book Appointment
           </button>

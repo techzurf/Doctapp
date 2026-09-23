@@ -153,7 +153,7 @@ export const FindDoctorScreen: React.FC<FindDoctorScreenProps> = ({
   };
 
   return (
-    <div id="find-doctor-screen" className="pb-24 pt-3 px-4 space-y-4 max-w-lg mx-auto">
+    <div id="find-doctor-screen" className="pb-24 pt-3 px-4 space-y-4 max-w-lg mx-auto w-full min-w-0">
       {/* Header Bar */}
       <div className="flex items-center justify-between">
         <div>
@@ -249,7 +249,7 @@ export const FindDoctorScreen: React.FC<FindDoctorScreenProps> = ({
       </div>
 
       {/* Specialty Horizontal Chips Carousel */}
-      <div className="flex gap-2 overflow-x-auto pb-1 -mx-4 px-4 no-scrollbar">
+      <div className="flex gap-2 overflow-x-auto pb-1 -mx-4 px-4 no-scrollbar w-full max-w-full">
         {SPECIALTIES.map((spec) => {
           const isSelected = selectedSpecialty === spec;
           return (
@@ -361,27 +361,27 @@ export const FindDoctorScreen: React.FC<FindDoctorScreenProps> = ({
               </div>
 
               {/* Bottom Details Bar */}
-              <div className="mt-3.5 pt-3 border-t border-slate-100 flex items-center justify-between">
-                <div>
-                  <div className="flex items-center gap-2">
+              <div className="mt-3.5 pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2.5">
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-1.5">
                     <span className="text-sm font-extrabold text-[#12302D]">
                       ₹{doc.fee}
                     </span>
-                    <span className="text-[10px] text-slate-400">Consultation Fee</span>
+                    <span className="text-[10px] text-slate-400 truncate">Consultation Fee</span>
                   </div>
-                  <div className="mt-0.5 flex items-center gap-1.5">
+                  <div className="mt-0.5 flex items-center gap-1.5 flex-wrap">
                     {doc.isAvailableToday ? (
-                      <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
+                      <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full shrink-0">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
                         Available Today
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1 text-[10px] font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">
+                      <span className="inline-flex items-center gap-1 text-[10px] font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full shrink-0">
                         <Clock className="w-2.5 h-2.5" />
                         Next: Tomorrow
                       </span>
                     )}
-                    <span className="text-[10px] text-slate-400 font-medium">
+                    <span className="text-[10px] text-slate-400 font-medium shrink-0">
                       ✓ Verified
                     </span>
                   </div>
@@ -394,7 +394,7 @@ export const FindDoctorScreen: React.FC<FindDoctorScreenProps> = ({
                     e.stopPropagation();
                     onBookDoctor(doc);
                   }}
-                  className="px-4 py-2 rounded-xl bg-[#0F766E] hover:bg-[#0D655E] text-white text-xs font-bold shadow-sm shadow-teal-900/10 active:scale-95 transition-all"
+                  className="shrink-0 px-3.5 sm:px-4 py-2 rounded-xl bg-[#0F766E] hover:bg-[#0D655E] text-white text-xs font-bold shadow-sm shadow-teal-900/10 active:scale-95 transition-all whitespace-nowrap"
                 >
                   Book Appointment
                 </button>
@@ -458,14 +458,14 @@ export const FindDoctorScreen: React.FC<FindDoctorScreenProps> = ({
                 <label className="block text-xs font-bold text-[#12302D] mb-2">
                   Doctor Gender Preference
                 </label>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
                   {(['Any', 'Male', 'Female'] as const).map((gender) => (
                     <button
                       key={gender}
                       type="button"
                       id={`filter-gender-${gender}`}
                       onClick={() => setFilters({ ...filters, gender })}
-                      className={`py-2 px-3 rounded-xl text-xs font-semibold border transition-all ${
+                      className={`py-2 px-1 sm:px-3 rounded-xl text-[11px] sm:text-xs font-semibold border transition-all truncate text-center ${
                         filters.gender === gender
                           ? 'bg-[#0F766E] text-white border-[#0F766E]'
                           : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
@@ -482,14 +482,14 @@ export const FindDoctorScreen: React.FC<FindDoctorScreenProps> = ({
                 <label className="block text-xs font-bold text-[#12302D] mb-2">
                   Consultation Mode
                 </label>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
                   {(['Both', 'Online', 'Clinic'] as const).map((type) => (
                     <button
                       key={type}
                       type="button"
                       id={`filter-consult-${type}`}
                       onClick={() => setFilters({ ...filters, consultationType: type })}
-                      className={`py-2 px-3 rounded-xl text-xs font-semibold border transition-all ${
+                      className={`py-2 px-1 sm:px-3 rounded-xl text-[11px] sm:text-xs font-semibold border transition-all truncate text-center ${
                         filters.consultationType === type
                           ? 'bg-[#0F766E] text-white border-[#0F766E]'
                           : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
@@ -506,14 +506,14 @@ export const FindDoctorScreen: React.FC<FindDoctorScreenProps> = ({
                 <label className="block text-xs font-bold text-[#12302D] mb-2">
                   Availability
                 </label>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
                   {(['Any', 'Today', 'Tomorrow'] as const).map((avail) => (
                     <button
                       key={avail}
                       type="button"
                       id={`filter-avail-${avail}`}
                       onClick={() => setFilters({ ...filters, availability: avail })}
-                      className={`py-2 px-3 rounded-xl text-xs font-semibold border transition-all ${
+                      className={`py-2 px-1 sm:px-3 rounded-xl text-[11px] sm:text-xs font-semibold border transition-all truncate text-center ${
                         filters.availability === avail
                           ? 'bg-[#0F766E] text-white border-[#0F766E]'
                           : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
@@ -530,14 +530,14 @@ export const FindDoctorScreen: React.FC<FindDoctorScreenProps> = ({
                 <label className="block text-xs font-bold text-[#12302D] mb-2">
                   Experience
                 </label>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
                   {(['Any', '5+ Years', '10+ Years'] as const).map((exp) => (
                     <button
                       key={exp}
                       type="button"
                       id={`filter-exp-${exp}`}
                       onClick={() => setFilters({ ...filters, experience: exp })}
-                      className={`py-2 px-3 rounded-xl text-xs font-semibold border transition-all ${
+                      className={`py-2 px-1 sm:px-3 rounded-xl text-[11px] sm:text-xs font-semibold border transition-all truncate text-center ${
                         filters.experience === exp
                           ? 'bg-[#0F766E] text-white border-[#0F766E]'
                           : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
@@ -554,14 +554,14 @@ export const FindDoctorScreen: React.FC<FindDoctorScreenProps> = ({
                 <label className="block text-xs font-bold text-[#12302D] mb-2">
                   Consultation Fee
                 </label>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
                   {(['Any', '₹0–₹500', '₹500–₹1,000'] as const).map((fee) => (
                     <button
                       key={fee}
                       type="button"
                       id={`filter-fee-${fee}`}
                       onClick={() => setFilters({ ...filters, feeRange: fee })}
-                      className={`py-2 px-3 rounded-xl text-xs font-semibold border transition-all ${
+                      className={`py-2 px-1 sm:px-3 rounded-xl text-[11px] sm:text-xs font-semibold border transition-all truncate text-center ${
                         filters.feeRange === fee
                           ? 'bg-[#0F766E] text-white border-[#0F766E]'
                           : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'

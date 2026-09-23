@@ -24,7 +24,7 @@ export const DoctorsDirectoryScreen: React.FC<DoctorsDirectoryScreenProps> = ({
   const [city, setCity] = React.useState<'Chennai' | 'Bengaluru' | 'Hyderabad' | 'Coimbatore'>('Chennai');
 
   return (
-    <div id="doctors-directory-wrapper">
+    <div id="doctors-directory-wrapper" className="w-full max-w-full min-w-0">
       <FindDoctorScreen
         doctors={doctors}
         selectedCity={city}

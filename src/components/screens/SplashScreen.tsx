@@ -10,7 +10,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
     <div
       id="splash-screen"
       onClick={onFinish}
-      className="fixed inset-0 z-50 flex flex-col items-center justify-between bg-gradient-to-b from-[#0F766E] via-[#0D655E] to-[#12302D] text-white px-6 py-12 cursor-pointer select-none"
+      className="fixed inset-0 z-50 flex flex-col items-center justify-between bg-gradient-to-b from-[#0F766E] via-[#0D655E] to-[#12302D] text-white px-6 py-12 cursor-pointer select-none w-full max-w-full min-w-0"
     >
       {/* Top subtle geometric pattern */}
       <div className="w-full flex justify-between items-center opacity-30 text-xs tracking-widest uppercase font-mono">

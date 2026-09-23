@@ -84,19 +84,19 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({
   ];
 
   return (
-    <div id="profile-screen" className="pb-24 pt-3 px-4 max-w-lg mx-auto space-y-4">
+    <div id="profile-screen" className="pb-24 pt-3 px-4 max-w-lg mx-auto w-full min-w-0 space-y-4">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-xl font-bold text-[#12302D] tracking-tight">Account & Profile</h1>
-          <p className="text-xs text-[#64748B]">Personal health settings</p>
+      <div className="flex items-center justify-between w-full min-w-0">
+        <div className="min-w-0 flex-1">
+          <h1 className="text-xl font-bold text-[#12302D] tracking-tight truncate">Account & Profile</h1>
+          <p className="text-xs text-[#64748B] truncate">Personal health settings</p>
         </div>
 
         <button
           type="button"
           id="profile-notifications-btn"
           onClick={onOpenNotifications}
-          className="p-2.5 rounded-xl bg-white border border-slate-200/80 text-slate-700 shadow-2xs hover:bg-slate-50 transition-colors relative"
+          className="p-2.5 rounded-xl bg-white border border-slate-200/80 text-slate-700 shadow-2xs hover:bg-slate-50 transition-colors relative shrink-0 ml-2"
           aria-label="Notifications"
         >
           <Bell className="w-4 h-4" />
@@ -106,8 +106,8 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({
 
       {/* User Card */}
       <div className="bg-white rounded-3xl p-5 border border-slate-200/80 shadow-sm space-y-4">
-        <div className="flex items-center gap-4">
-          <div className="relative">
+        <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+          <div className="relative shrink-0">
             <img
               src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200"
               alt={userProfile.name}
@@ -119,7 +119,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({
           </div>
 
           <div className="flex-1 min-w-0">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-2">
               <h2 className="text-base font-extrabold text-[#12302D] truncate">
                 {userProfile.name}
               </h2>
@@ -134,19 +134,19 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({
                   setEditCity(userProfile.city);
                   setShowEditProfileModal(true);
                 }}
-                className="p-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors"
+                className="p-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors shrink-0"
                 title="Edit Personal Information"
               >
                 <Edit2 className="w-3.5 h-3.5" />
               </button>
             </div>
-            <p className="text-xs text-slate-500 flex items-center gap-1 mt-0.5">
-              <Phone className="w-3 h-3 text-[#0F766E]" />
-              {userProfile.phone}
+            <p className="text-xs text-slate-500 flex items-center gap-1 mt-0.5 truncate">
+              <Phone className="w-3 h-3 text-[#0F766E] shrink-0" />
+              <span className="truncate">{userProfile.phone}</span>
             </p>
             <p className="text-xs text-slate-500 flex items-center gap-1 mt-0.5 truncate">
-              <Mail className="w-3 h-3 text-[#0F766E]" />
-              {userProfile.email}
+              <Mail className="w-3 h-3 text-[#0F766E] shrink-0" />
+              <span className="truncate">{userProfile.email}</span>
             </p>
           </div>
         </div>
@@ -173,16 +173,16 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({
             onClick={onNavigateToAppointments}
             className="w-full p-3.5 flex items-center justify-between hover:bg-slate-50 rounded-2xl transition-colors text-left"
           >
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center">
+            <div className="flex items-center gap-3 min-w-0 flex-1">
+              <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0">
                 <Calendar className="w-4 h-4" />
               </div>
-              <div>
-                <p className="text-xs font-bold text-[#12302D]">My Appointments</p>
-                <p className="text-[11px] text-slate-500">Upcoming visits & consultation history</p>
+              <div className="min-w-0 flex-1">
+                <p className="text-xs font-bold text-[#12302D] truncate">My Appointments</p>
+                <p className="text-[11px] text-slate-500 truncate">Upcoming visits & consultation history</p>
               </div>
             </div>
-            <ChevronRight className="w-4 h-4 text-slate-400" />
+            <ChevronRight className="w-4 h-4 text-slate-400 shrink-0 ml-2" />
           </button>
         )}
 
@@ -192,16 +192,16 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({
           onClick={onNavigateToFamily}
           className="w-full p-3.5 flex items-center justify-between hover:bg-slate-50 rounded-2xl transition-colors text-left"
         >
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-teal-50 text-[#0F766E] flex items-center justify-center">
+          <div className="flex items-center gap-3 min-w-0 flex-1">
+            <div className="w-9 h-9 rounded-xl bg-teal-50 text-[#0F766E] flex items-center justify-center shrink-0">
               <Users className="w-4 h-4" />
             </div>
-            <div>
-              <p className="text-xs font-bold text-[#12302D]">My Family Profiles</p>
-              <p className="text-[11px] text-slate-500">Fatima, Ayaan, Maryam (4 members)</p>
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-bold text-[#12302D] truncate">My Family Profiles</p>
+              <p className="text-[11px] text-slate-500 truncate">Fatima, Ayaan, Maryam (4 members)</p>
             </div>
           </div>
-          <ChevronRight className="w-4 h-4 text-slate-400" />
+          <ChevronRight className="w-4 h-4 text-slate-400 shrink-0 ml-2" />
         </button>
 
         <button
@@ -210,16 +210,16 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({
           onClick={onNavigateToRecords}
           className="w-full p-3.5 flex items-center justify-between hover:bg-slate-50 rounded-2xl transition-colors text-left"
         >
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-sky-50 text-sky-700 flex items-center justify-center">
+          <div className="flex items-center gap-3 min-w-0 flex-1">
+            <div className="w-9 h-9 rounded-xl bg-sky-50 text-sky-700 flex items-center justify-center shrink-0">
               <FileText className="w-4 h-4" />
             </div>
-            <div>
-              <p className="text-xs font-bold text-[#12302D]">Medical Records & E-Rx</p>
-              <p className="text-[11px] text-slate-500">View lab reports & prescriptions</p>
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-bold text-[#12302D] truncate">Medical Records & E-Rx</p>
+              <p className="text-[11px] text-slate-500 truncate">View lab reports & prescriptions</p>
             </div>
           </div>
-          <ChevronRight className="w-4 h-4 text-slate-400" />
+          <ChevronRight className="w-4 h-4 text-slate-400 shrink-0 ml-2" />
         </button>
 
         <button
@@ -228,16 +228,16 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({
           onClick={onNavigateToSavedDoctors}
           className="w-full p-3.5 flex items-center justify-between hover:bg-slate-50 rounded-2xl transition-colors text-left"
         >
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center">
+          <div className="flex items-center gap-3 min-w-0 flex-1">
+            <div className="w-9 h-9 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0">
               <Heart className="w-4 h-4" />
             </div>
-            <div>
-              <p className="text-xs font-bold text-[#12302D]">Saved Doctors (Favorites)</p>
-              <p className="text-[11px] text-slate-500">Quickly re-book favorite doctors</p>
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-bold text-[#12302D] truncate">Saved Doctors (Favorites)</p>
+              <p className="text-[11px] text-slate-500 truncate">Quickly re-book favorite doctors</p>
             </div>
           </div>
-          <ChevronRight className="w-4 h-4 text-slate-400" />
+          <ChevronRight className="w-4 h-4 text-slate-400 shrink-0 ml-2" />
         </button>
 
         <button
@@ -246,16 +246,16 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({
           onClick={onNavigateToIslamicWellness}
           className="w-full p-3.5 flex items-center justify-between hover:bg-slate-50 rounded-2xl transition-colors text-left"
         >
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-amber-50 text-[#C9A227] flex items-center justify-center">
+          <div className="flex items-center gap-3 min-w-0 flex-1">
+            <div className="w-9 h-9 rounded-xl bg-amber-50 text-[#C9A227] flex items-center justify-center shrink-0">
               <Moon className="w-4 h-4" />
             </div>
-            <div>
-              <p className="text-xs font-bold text-[#12302D]">Islamic Wellness Hub</p>
-              <p className="text-[11px] text-slate-500">Duas, Ramadan fasting, Hajj guidelines</p>
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-bold text-[#12302D] truncate">Islamic Wellness Hub</p>
+              <p className="text-[11px] text-slate-500 truncate">Duas, Ramadan fasting, Hajj guidelines</p>
             </div>
           </div>
-          <ChevronRight className="w-4 h-4 text-slate-400" />
+          <ChevronRight className="w-4 h-4 text-slate-400 shrink-0 ml-2" />
         </button>
       </div>
 
@@ -267,16 +267,16 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({
           onClick={() => setShowLanguageModal(true)}
           className="w-full p-3.5 flex items-center justify-between hover:bg-slate-50 rounded-2xl transition-colors text-left"
         >
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center">
+          <div className="flex items-center gap-3 min-w-0 flex-1">
+            <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0">
               <Globe className="w-4 h-4" />
             </div>
-            <div>
-              <p className="text-xs font-bold text-[#12302D]">Language Preference</p>
-              <p className="text-[11px] text-[#0F766E] font-medium">{selectedLanguage}</p>
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-bold text-[#12302D] truncate">Language Preference</p>
+              <p className="text-[11px] text-[#0F766E] font-medium truncate">{selectedLanguage}</p>
             </div>
           </div>
-          <ChevronRight className="w-4 h-4 text-slate-400" />
+          <ChevronRight className="w-4 h-4 text-slate-400 shrink-0 ml-2" />
         </button>
 
         <button
@@ -285,16 +285,16 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({
           onClick={() => setShowPrivacyModal(true)}
           className="w-full p-3.5 flex items-center justify-between hover:bg-slate-50 rounded-2xl transition-colors text-left"
         >
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center">
+          <div className="flex items-center gap-3 min-w-0 flex-1">
+            <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0">
               <Lock className="w-4 h-4" />
             </div>
-            <div>
-              <p className="text-xs font-bold text-[#12302D]">Privacy & Security</p>
-              <p className="text-[11px] text-slate-500">Biometrics, data encryption & terms</p>
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-bold text-[#12302D] truncate">Privacy & Security</p>
+              <p className="text-[11px] text-slate-500 truncate">Biometrics, data encryption & terms</p>
             </div>
           </div>
-          <ChevronRight className="w-4 h-4 text-slate-400" />
+          <ChevronRight className="w-4 h-4 text-slate-400 shrink-0 ml-2" />
         </button>
 
         <button
@@ -303,16 +303,16 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({
           onClick={() => setShowSupportModal(true)}
           className="w-full p-3.5 flex items-center justify-between hover:bg-slate-50 rounded-2xl transition-colors text-left"
         >
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center">
+          <div className="flex items-center gap-3 min-w-0 flex-1">
+            <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0">
               <HelpCircle className="w-4 h-4" />
             </div>
-            <div>
-              <p className="text-xs font-bold text-[#12302D]">Help & Support</p>
-              <p className="text-[11px] text-slate-500">24/7 patient helpline & FAQs</p>
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-bold text-[#12302D] truncate">Help & Support</p>
+              <p className="text-[11px] text-slate-500 truncate">24/7 patient helpline & FAQs</p>
             </div>
           </div>
-          <ChevronRight className="w-4 h-4 text-slate-400" />
+          <ChevronRight className="w-4 h-4 text-slate-400 shrink-0 ml-2" />
         </button>
 
         <button
@@ -321,16 +321,16 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({
           onClick={() => setShowAboutModal(true)}
           className="w-full p-3.5 flex items-center justify-between hover:bg-slate-50 rounded-2xl transition-colors text-left"
         >
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center">
+          <div className="flex items-center gap-3 min-w-0 flex-1">
+            <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center shrink-0">
               <Info className="w-4 h-4" />
             </div>
-            <div>
-              <p className="text-xs font-bold text-[#12302D]">About ShifaCare</p>
-              <p className="text-[11px] text-slate-500">Healthcare. Faith. Community.</p>
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-bold text-[#12302D] truncate">About ShifaCare</p>
+              <p className="text-[11px] text-slate-500 truncate">Healthcare. Faith. Community.</p>
             </div>
           </div>
-          <ChevronRight className="w-4 h-4 text-slate-400" />
+          <ChevronRight className="w-4 h-4 text-slate-400 shrink-0 ml-2" />
         </button>
       </div>
 

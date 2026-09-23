@@ -29,22 +29,22 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
   onNotificationClick
 }) => {
   return (
-    <div id="notifications-modal" className="pb-24 pt-2 px-4 max-w-lg mx-auto space-y-4">
+    <div id="notifications-modal" className="pb-24 pt-2 px-4 max-w-lg mx-auto w-full min-w-0 space-y-4">
       {/* Header */}
-      <div className="flex items-center justify-between py-2">
-        <div className="flex items-center gap-3">
+      <div className="flex items-center justify-between py-2 w-full min-w-0 gap-2">
+        <div className="flex items-center gap-3 min-w-0 flex-1">
           <button
             type="button"
             id="notifications-back-btn"
             onClick={onBack}
-            className="p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-sm text-[#12302D] hover:bg-slate-50 transition-colors"
+            className="p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-sm text-[#12302D] hover:bg-slate-50 transition-colors shrink-0"
             aria-label="Go back"
           >
             <ArrowLeft className="w-4 h-4" />
           </button>
-          <div>
-            <h1 className="text-lg font-bold text-[#12302D]">Notifications</h1>
-            <p className="text-xs text-slate-500">Alerts & health reminders</p>
+          <div className="min-w-0 flex-1">
+            <h1 className="text-lg font-bold text-[#12302D] truncate">Notifications</h1>
+            <p className="text-xs text-slate-500 truncate">Alerts & health reminders</p>
           </div>
         </div>
 
@@ -52,7 +52,7 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
           <button
             type="button"
             onClick={onMarkAllAsRead}
-            className="text-xs font-bold text-[#0F766E] hover:underline"
+            className="text-xs font-bold text-[#0F766E] hover:underline shrink-0"
           >
             Mark all read
           </button>
@@ -88,11 +88,11 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
                   className="flex-1 min-w-0 cursor-pointer"
                   onClick={() => onNotificationClick(item)}
                 >
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between gap-2">
                     <h4 className="text-xs font-bold text-[#12302D] truncate">
                       {item.title}
                     </h4>
-                    <span className="text-[10px] text-slate-400 font-medium">
+                    <span className="text-[10px] text-slate-400 font-medium shrink-0">
                       {item.timestamp}
                     </span>
                   </div>
@@ -104,7 +104,7 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
                 <button
                   type="button"
                   onClick={() => onDismissNotification(item.id)}
-                  className="p-1 rounded-lg text-slate-400 hover:text-slate-600"
+                  className="p-1 rounded-lg text-slate-400 hover:text-slate-600 shrink-0"
                   aria-label="Dismiss"
                 >
                   <X className="w-3.5 h-3.5" />

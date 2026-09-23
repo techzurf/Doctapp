@@ -24,7 +24,7 @@ export const IslamicWellnessScreen: React.FC<IslamicWellnessScreenProps> = ({
   onNavigateToHajj
 }) => {
   return (
-    <div id="islamic-wellness-screen" className="pb-24 pt-3 px-4 max-w-lg mx-auto space-y-5">
+    <div id="islamic-wellness-screen" className="pb-24 pt-3 px-4 max-w-lg mx-auto w-full min-w-0 space-y-5">
       {/* Header with Islamic Pattern Accent */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0F766E] to-[#12302D] p-5 text-white shadow-md">
         <div className="relative z-10 space-y-2">
@@ -53,24 +53,24 @@ export const IslamicWellnessScreen: React.FC<IslamicWellnessScreenProps> = ({
           onClick={onNavigateToDuas}
           className="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm hover:border-[#0F766E]/50 transition-all cursor-pointer group"
         >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3.5">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-3.5 min-w-0 flex-1">
               <div className="w-12 h-12 rounded-2xl bg-teal-50 text-[#0F766E] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                 <Heart className="w-6 h-6 text-[#0F766E]" />
               </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <h3 className="text-sm font-bold text-[#12302D]">Duas for Healing</h3>
-                  <span className="px-2 py-0.5 rounded-full bg-teal-50 text-[#0F766E] text-[10px] font-bold">
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2 flex-wrap min-w-0">
+                  <h3 className="text-sm font-bold text-[#12302D] truncate">Duas for Healing</h3>
+                  <span className="px-2 py-0.5 rounded-full bg-teal-50 text-[#0F766E] text-[10px] font-bold shrink-0">
                     Sahih Hadith
                   </span>
                 </div>
-                <p className="text-xs text-slate-500 mt-0.5">
+                <p className="text-xs text-slate-500 mt-0.5 line-clamp-2">
                   Authentic supplications for illness, visiting the sick & anxiety
                 </p>
               </div>
             </div>
-            <ChevronRight className="w-5 h-5 text-slate-400 group-hover:translate-x-1 group-hover:text-[#0F766E] transition-all" />
+            <ChevronRight className="w-5 h-5 text-slate-400 group-hover:translate-x-1 group-hover:text-[#0F766E] transition-all shrink-0" />
           </div>
         </div>
 
@@ -80,24 +80,24 @@ export const IslamicWellnessScreen: React.FC<IslamicWellnessScreenProps> = ({
           onClick={onNavigateToRamadan}
           className="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm hover:border-[#0F766E]/50 transition-all cursor-pointer group"
         >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3.5">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-3.5 min-w-0 flex-1">
               <div className="w-12 h-12 rounded-2xl bg-amber-50 text-[#C9A227] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                 <Moon className="w-6 h-6 text-[#C9A227]" />
               </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <h3 className="text-sm font-bold text-[#12302D]">Ramadan & Health</h3>
-                  <span className="px-2 py-0.5 rounded-full bg-amber-50 text-[#92400E] text-[10px] font-bold">
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2 flex-wrap min-w-0">
+                  <h3 className="text-sm font-bold text-[#12302D] truncate">Ramadan & Health</h3>
+                  <span className="px-2 py-0.5 rounded-full bg-amber-50 text-[#92400E] text-[10px] font-bold shrink-0">
                     Doctor Verified
                   </span>
                 </div>
-                <p className="text-xs text-slate-500 mt-0.5">
+                <p className="text-xs text-slate-500 mt-0.5 line-clamp-2">
                   Fasting with diabetes, medicine timings, hydration & nutrition
                 </p>
               </div>
             </div>
-            <ChevronRight className="w-5 h-5 text-slate-400 group-hover:translate-x-1 group-hover:text-[#0F766E] transition-all" />
+            <ChevronRight className="w-5 h-5 text-slate-400 group-hover:translate-x-1 group-hover:text-[#0F766E] transition-all shrink-0" />
           </div>
         </div>
 
@@ -107,24 +107,24 @@ export const IslamicWellnessScreen: React.FC<IslamicWellnessScreenProps> = ({
           onClick={onNavigateToHajj}
           className="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm hover:border-[#0F766E]/50 transition-all cursor-pointer group"
         >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3.5">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-3.5 min-w-0 flex-1">
               <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                 <Compass className="w-6 h-6 text-emerald-700" />
               </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <h3 className="text-sm font-bold text-[#12302D]">Hajj & Umrah Guide</h3>
-                  <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold">
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2 flex-wrap min-w-0">
+                  <h3 className="text-sm font-bold text-[#12302D] truncate">Hajj & Umrah Guide</h3>
+                  <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold shrink-0">
                     Pilgrim Guide
                   </span>
                 </div>
-                <p className="text-xs text-slate-500 mt-0.5">
+                <p className="text-xs text-slate-500 mt-0.5 line-clamp-2">
                   Vaccinations, heat stroke, foot care & endurance checklist
                 </p>
               </div>
             </div>
-            <ChevronRight className="w-5 h-5 text-slate-400 group-hover:translate-x-1 group-hover:text-[#0F766E] transition-all" />
+            <ChevronRight className="w-5 h-5 text-slate-400 group-hover:translate-x-1 group-hover:text-[#0F766E] transition-all shrink-0" />
           </div>
         </div>
       </div>
@@ -183,7 +183,7 @@ export const IslamicWellnessScreen: React.FC<IslamicWellnessScreenProps> = ({
         <div className="p-2 rounded-xl bg-white text-[#0F766E] shadow-2xs shrink-0">
           <Sparkles className="w-5 h-5 text-[#C9A227]" />
         </div>
-        <div>
+        <div className="min-w-0 flex-1">
           <h3 className="text-xs font-bold text-[#12302D]">
             Spiritual Coping with Illness
           </h3>

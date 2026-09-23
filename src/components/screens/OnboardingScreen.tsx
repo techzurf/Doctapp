@@ -50,10 +50,10 @@ export const OnboardingScreen: React.FC<OnboardingScreenProps> = ({ onComplete, 
   return (
     <div
       id="onboarding-screen"
-      className="fixed inset-0 z-50 flex flex-col justify-between bg-[#F7FAF9] text-[#12302D] px-6 py-10 safe-top safe-bottom select-none overflow-y-auto"
+      className="fixed inset-0 z-50 flex flex-col justify-between bg-[#F7FAF9] text-[#12302D] px-5 sm:px-6 py-6 sm:py-10 safe-top safe-bottom select-none overflow-y-auto w-full max-w-full min-w-0"
     >
       {/* Top Header: Skip */}
-      <div className="flex justify-between items-center w-full">
+      <div className="flex justify-between items-center w-full min-w-0">
         <div className="flex items-center gap-1.5 text-xs font-bold text-[#0F766E] uppercase tracking-wider">
           <ShieldCheck className="w-4 h-4 text-[#14B8A6]" />
           <span>ShifaCare</span>
@@ -62,19 +62,19 @@ export const OnboardingScreen: React.FC<OnboardingScreenProps> = ({ onComplete, 
           type="button"
           id="onboarding-skip-btn"
           onClick={onComplete}
-          className="text-xs font-semibold text-[#64748B] hover:text-[#0F766E] px-3 py-1.5 rounded-full hover:bg-teal-50 transition-colors"
+          className="text-xs font-semibold text-[#64748B] hover:text-[#0F766E] px-3 py-1.5 rounded-full hover:bg-teal-50 transition-colors shrink-0"
         >
           Skip
         </button>
       </div>
 
       {/* Main Slide Content */}
-      <div className="flex-1 flex flex-col items-center justify-center my-6 text-center max-w-sm mx-auto">
+      <div className="flex-1 flex flex-col items-center justify-center my-4 sm:my-6 text-center max-w-sm mx-auto w-full min-w-0">
         {/* Visual Graphic with soft teal aura */}
-        <div className="relative mb-8">
-          <div className="w-32 h-32 rounded-3xl bg-gradient-to-tr from-teal-50 via-teal-100 to-white flex items-center justify-center shadow-md border border-teal-200/60">
-            <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${slide.accent} flex items-center justify-center shadow-lg text-white`}>
-              <IconComponent className="w-10 h-10" />
+        <div className="relative mb-6 sm:mb-8 shrink-0">
+          <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-3xl bg-gradient-to-tr from-teal-50 via-teal-100 to-white flex items-center justify-center shadow-md border border-teal-200/60">
+            <div className={`w-18 h-18 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br ${slide.accent} flex items-center justify-center shadow-lg text-white`}>
+              <IconComponent className="w-8 h-8 sm:w-10 sm:h-10" />
             </div>
           </div>
           <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap px-3 py-0.5 rounded-full bg-[#12302D] text-white text-[10px] font-semibold tracking-wide shadow-sm">
@@ -83,28 +83,28 @@ export const OnboardingScreen: React.FC<OnboardingScreenProps> = ({ onComplete, 
         </div>
 
         {/* Title & Description */}
-        <h2 className="text-2xl font-bold text-[#12302D] tracking-tight mb-3">
+        <h2 className="text-xl sm:text-2xl font-bold text-[#12302D] tracking-tight mb-2 sm:mb-3">
           {slide.title}
         </h2>
-        <p className="text-sm text-[#64748B] leading-relaxed mb-6">
+        <p className="text-xs sm:text-sm text-[#64748B] leading-relaxed mb-5 sm:mb-6">
           {slide.description}
         </p>
 
         {/* Key Highlights list */}
-        <div className="w-full bg-white rounded-2xl p-4 border border-[#12302D]/5 shadow-sm space-y-2 text-left mb-4">
+        <div className="w-full bg-white rounded-2xl p-3.5 sm:p-4 border border-[#12302D]/5 shadow-sm space-y-2 text-left mb-4">
           {slide.details.map((item, idx) => (
             <div key={idx} className="flex items-center gap-2.5 text-xs text-[#12302D]/90 font-medium">
               <div className="w-4 h-4 rounded-full bg-teal-50 flex items-center justify-center shrink-0 border border-teal-200">
                 <Check className="w-2.5 h-2.5 text-[#0F766E]" />
               </div>
-              <span>{item}</span>
+              <span className="truncate">{item}</span>
             </div>
           ))}
         </div>
       </div>
 
       {/* Bottom Controls */}
-      <div className="w-full max-w-sm mx-auto space-y-4">
+      <div className="w-full max-w-sm mx-auto space-y-4 min-w-0 shrink-0">
         {/* Step dots indicator */}
         <div className="flex justify-center items-center gap-2">
           {slides.map((_, idx) => (

@@ -106,25 +106,25 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
     }
   };
   return (
-    <div id="home-screen" className="pb-24 pt-3 px-4 space-y-6 max-w-lg mx-auto">
+    <div id="home-screen" className="pb-24 pt-3 px-4 space-y-6 max-w-lg mx-auto w-full min-w-0">
       {/* Top Bar: Assalamu Alaikum & Notifications */}
-      <div className="flex items-center justify-between pt-2">
-        <div>
+      <div className="flex items-center justify-between pt-2 gap-2">
+        <div className="min-w-0 flex-1">
           <div className="flex items-center gap-1.5 text-xs font-semibold text-[#0F766E]">
-            <span className="w-2 h-2 rounded-full bg-[#14B8A6] animate-pulse" />
-            <span className="tracking-wide">ShifaCare Healthcare</span>
+            <span className="w-2 h-2 rounded-full bg-[#14B8A6] animate-pulse shrink-0" />
+            <span className="tracking-wide truncate">ShifaCare Healthcare</span>
           </div>
-          <h1 className="text-xl font-bold text-[#12302D] tracking-tight mt-0.5">
+          <h1 className="text-xl font-bold text-[#12302D] tracking-tight mt-0.5 truncate">
             Assalamu Alaikum, {userName.split(' ')[0]}
           </h1>
-          <p className="text-xs text-[#64748B]">How can we help you today?</p>
+          <p className="text-xs text-[#64748B] truncate">How can we help you today?</p>
         </div>
 
         <button
           type="button"
           id="home-notifications-btn"
           onClick={onOpenNotifications}
-          className="relative p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-sm text-[#12302D] hover:bg-slate-50 active:scale-95 transition-all"
+          className="relative p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-sm text-[#12302D] hover:bg-slate-50 active:scale-95 transition-all shrink-0"
           aria-label="View notifications"
         >
           <Bell className="w-5 h-5 text-[#0F766E]" />
@@ -136,10 +136,10 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
       <div
         id="home-search-trigger"
         onClick={handleSearchNav}
-        className="flex items-center gap-3 px-4 py-3.5 bg-white rounded-2xl border border-slate-200/90 shadow-sm text-slate-400 hover:border-[#0F766E]/40 cursor-pointer active:scale-[0.99] transition-all"
+        className="flex items-center gap-3 px-4 py-3.5 bg-white rounded-2xl border border-slate-200/90 shadow-sm text-slate-400 hover:border-[#0F766E]/40 cursor-pointer active:scale-[0.99] transition-all w-full"
       >
-        <Search className="w-4 h-4 text-[#0F766E]" />
-        <span className="text-xs font-medium text-slate-500">
+        <Search className="w-4 h-4 text-[#0F766E] shrink-0" />
+        <span className="text-xs font-medium text-slate-500 truncate">
           Search doctors, specialties or clinics
         </span>
       </div>
@@ -151,12 +151,12 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#0F766E] to-[#0D655E] text-white p-4 shadow-md border border-[#14B8A6]/30"
         >
           {/* Subtle gold accent pill */}
-          <div className="flex items-center justify-between mb-2.5">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/15 text-[11px] font-semibold text-teal-100">
+          <div className="flex items-center justify-between mb-2.5 gap-2">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/15 text-[11px] font-semibold text-teal-100 shrink-0">
               <Clock className="w-3 h-3 text-[#C9A227]" />
               Upcoming Appointment
             </span>
-            <span className="text-[11px] font-medium text-teal-200 flex items-center gap-1">
+            <span className="text-[11px] font-medium text-teal-200 flex items-center gap-1 shrink-0">
               {resolvedUpcoming.consultationType === 'Online Consultation' ? (
                 <>
                   <Video className="w-3 h-3 text-[#14B8A6]" />
@@ -171,21 +171,21 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             </span>
           </div>
 
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
+          <div className="flex items-center justify-between gap-2.5">
+            <div className="flex items-center gap-3 min-w-0 flex-1">
               <img
                 src={resolvedUpcoming.doctorPhoto}
                 alt={resolvedUpcoming.doctorName}
-                className="w-12 h-12 rounded-xl object-cover ring-2 ring-white/20"
+                className="w-12 h-12 rounded-xl object-cover ring-2 ring-white/20 shrink-0"
               />
-              <div>
-                <p className="text-xs font-bold text-[#C9A227] tracking-wide">
+              <div className="min-w-0 flex-1">
+                <p className="text-xs font-bold text-[#C9A227] tracking-wide truncate">
                   {resolvedUpcoming.date} • {resolvedUpcoming.time}
                 </p>
-                <h2 className="text-sm font-bold text-white">
+                <h2 className="text-sm font-bold text-white truncate">
                   {resolvedUpcoming.doctorName}
                 </h2>
-                <p className="text-[11px] text-teal-100">
+                <p className="text-[11px] text-teal-100 truncate">
                   {resolvedUpcoming.doctorSpecialty} • For {resolvedUpcoming.patientName}
                 </p>
               </div>
@@ -204,18 +204,18 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
       )}
 
       {/* Quick Action Cards */}
-      <div>
-        <div className="grid grid-cols-4 gap-2.5">
+      <div className="w-full">
+        <div className="grid grid-cols-4 gap-1.5 sm:gap-2.5">
           <button
             type="button"
             id="quick-find-doctor"
             onClick={handleDoctorsNav}
-            className="flex flex-col items-center p-3 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:border-[#0F766E]/40 active:scale-95 transition-all text-center"
+            className="flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:border-[#0F766E]/40 active:scale-95 transition-all text-center min-w-0"
           >
-            <div className="w-11 h-11 rounded-xl bg-teal-50 flex items-center justify-center text-[#0F766E] mb-1.5">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-teal-50 flex items-center justify-center text-[#0F766E] mb-1.5 shrink-0">
               <UserCheck className="w-5 h-5" />
             </div>
-            <span className="text-[11px] font-semibold text-[#12302D] leading-tight">
+            <span className="text-[10px] sm:text-[11px] font-semibold text-[#12302D] leading-tight truncate w-full">
               Find Doctor
             </span>
           </button>
@@ -224,12 +224,12 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             type="button"
             id="quick-book-apt"
             onClick={handleDoctorsNav}
-            className="flex flex-col items-center p-3 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:border-[#0F766E]/40 active:scale-95 transition-all text-center"
+            className="flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:border-[#0F766E]/40 active:scale-95 transition-all text-center min-w-0"
           >
-            <div className="w-11 h-11 rounded-xl bg-amber-50 flex items-center justify-center text-[#C9A227] mb-1.5">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-amber-50 flex items-center justify-center text-[#C9A227] mb-1.5 shrink-0">
               <CalendarPlus className="w-5 h-5" />
             </div>
-            <span className="text-[11px] font-semibold text-[#12302D] leading-tight">
+            <span className="text-[10px] sm:text-[11px] font-semibold text-[#12302D] leading-tight truncate w-full">
               Book Visit
             </span>
           </button>
@@ -238,13 +238,13 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             type="button"
             id="quick-my-apts"
             onClick={handleAptsNav}
-            className="flex flex-col items-center p-3 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:border-[#0F766E]/40 active:scale-95 transition-all text-center"
+            className="flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:border-[#0F766E]/40 active:scale-95 transition-all text-center min-w-0"
           >
-            <div className="w-11 h-11 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 mb-1.5">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 mb-1.5 shrink-0">
               <CalendarCheck className="w-5 h-5" />
             </div>
-            <span className="text-[11px] font-semibold text-[#12302D] leading-tight">
-              Appointments
+            <span className="text-[10px] sm:text-[11px] font-semibold text-[#12302D] leading-tight truncate w-full">
+              Bookings
             </span>
           </button>
 
@@ -252,12 +252,12 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             type="button"
             id="quick-records"
             onClick={handleRecordsNav}
-            className="flex flex-col items-center p-3 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:border-[#0F766E]/40 active:scale-95 transition-all text-center"
+            className="flex flex-col items-center p-2 sm:p-3 rounded-2xl bg-white border border-slate-200/80 shadow-sm hover:border-[#0F766E]/40 active:scale-95 transition-all text-center min-w-0"
           >
-            <div className="w-11 h-11 rounded-xl bg-sky-50 flex items-center justify-center text-sky-600 mb-1.5">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-sky-50 flex items-center justify-center text-sky-600 mb-1.5 shrink-0">
               <FileText className="w-5 h-5" />
             </div>
-            <span className="text-[11px] font-semibold text-[#12302D] leading-tight">
+            <span className="text-[10px] sm:text-[11px] font-semibold text-[#12302D] leading-tight truncate w-full">
               Medical Rx
             </span>
           </button>
@@ -265,7 +265,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
       </div>
 
       {/* Recommended / Nearby Doctors Carousel */}
-      <div>
+      <div className="w-full min-w-0">
         <div className="flex items-center justify-between mb-3">
           <div>
             <h2 className="text-base font-bold text-[#12302D] tracking-tight">
@@ -284,17 +284,17 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           </button>
         </div>
 
-        <div className="flex gap-3 overflow-x-auto pb-2 -mx-4 px-4 no-scrollbar">
+        <div className="flex gap-3 overflow-x-auto pb-2 -mx-4 px-4 no-scrollbar w-full max-w-full">
           {doctors.slice(0, 4).map((doctor) => (
             <div
               key={doctor.id}
               id={`doctor-card-${doctor.id}`}
               onClick={() => onSelectDoctor(doctor)}
-              className="min-w-[240px] max-w-[240px] bg-white rounded-2xl p-3.5 border border-slate-200/80 shadow-sm hover:border-[#0F766E]/40 flex flex-col justify-between shrink-0 cursor-pointer active:scale-[0.99] transition-all"
+              className="w-[230px] sm:w-[240px] max-w-[80vw] bg-white rounded-2xl p-3.5 border border-slate-200/80 shadow-sm hover:border-[#0F766E]/40 flex flex-col justify-between shrink-0 cursor-pointer active:scale-[0.99] transition-all"
             >
               <div>
                 <div className="flex items-start gap-3">
-                  <div className="relative">
+                  <div className="relative shrink-0">
                     <img
                       src={doctor.photoUrl}
                       alt={doctor.name}
@@ -314,7 +314,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                       {doctor.specialty}
                     </p>
                     <div className="flex items-center gap-1 mt-1 text-[11px] text-slate-500">
-                      <Star className="w-3 h-3 text-amber-500 fill-amber-500" />
+                      <Star className="w-3 h-3 text-amber-500 fill-amber-500 shrink-0" />
                       <span className="font-semibold text-slate-700">{doctor.rating}</span>
                       <span>({doctor.reviewCount})</span>
                     </div>
@@ -323,18 +323,18 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
 
                 <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
                   <span>{doctor.experienceYears} yrs exp</span>
-                  <span className="flex items-center gap-0.5">
-                    <MapPin className="w-3 h-3 text-[#0F766E]" />
-                    {doctor.city}
+                  <span className="flex items-center gap-0.5 truncate max-w-[110px]">
+                    <MapPin className="w-3 h-3 text-[#0F766E] shrink-0" />
+                    <span className="truncate">{doctor.city}</span>
                   </span>
                 </div>
               </div>
 
-              <div className="mt-3 flex items-center justify-between pt-2 border-t border-slate-100">
-                <span className="text-xs font-bold text-[#12302D]">
+              <div className="mt-3 flex items-center justify-between pt-2 border-t border-slate-100 gap-2">
+                <span className="text-xs font-bold text-[#12302D] shrink-0">
                   ₹{doctor.fee}
                 </span>
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-1.5 shrink-0">
                   {onToggleSaveDoctor && (
                     <button
                       type="button"
@@ -368,7 +368,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
       </div>
 
       {/* Health for Your Family Section */}
-      <div>
+      <div className="w-full min-w-0">
         <div className="flex items-center justify-between mb-3">
           <div>
             <h2 className="text-base font-bold text-[#12302D] tracking-tight">
@@ -387,15 +387,15 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           </button>
         </div>
 
-        <div className="flex gap-2.5 overflow-x-auto pb-2 -mx-4 px-4 no-scrollbar">
+        <div className="flex gap-2.5 overflow-x-auto pb-2 -mx-4 px-4 no-scrollbar w-full max-w-full">
           {familyMembers.map((member) => (
             <div
               key={member.id}
               id={`family-card-${member.id}`}
               onClick={() => onOpenFamilyMember(member)}
-              className="min-w-[125px] bg-white rounded-2xl p-3 border border-slate-200/80 shadow-sm flex flex-col items-center text-center shrink-0 cursor-pointer hover:border-[#0F766E]/40 active:scale-95 transition-all"
+              className="w-[120px] sm:w-[125px] bg-white rounded-2xl p-3 border border-slate-200/80 shadow-sm flex flex-col items-center text-center shrink-0 cursor-pointer hover:border-[#0F766E]/40 active:scale-95 transition-all"
             >
-              <div className="relative mb-2">
+              <div className="relative mb-2 shrink-0">
                 <img
                   src={member.photoUrl || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=200'}
                   alt={member.name}
@@ -408,7 +408,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
               <h3 className="text-xs font-bold text-[#12302D] truncate w-full">
                 {member.name.split(' ')[0]}
               </h3>
-              <span className="text-[10px] text-slate-500 font-medium">
+              <span className="text-[10px] text-slate-500 font-medium truncate w-full">
                 {member.relation} • {member.age}y
               </span>
             </div>
@@ -419,7 +419,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             type="button"
             id="home-add-member-card"
             onClick={onAddFamilyMember}
-            className="min-w-[100px] bg-teal-50/70 border border-dashed border-[#14B8A6] rounded-2xl p-3 flex flex-col items-center justify-center text-center shrink-0 hover:bg-teal-50 active:scale-95 transition-all"
+            className="w-[100px] bg-teal-50/70 border border-dashed border-[#14B8A6] rounded-2xl p-3 flex flex-col items-center justify-center text-center shrink-0 hover:bg-teal-50 active:scale-95 transition-all"
           >
             <div className="w-9 h-9 rounded-full bg-white text-[#0F766E] flex items-center justify-center shadow-sm mb-1.5">
               <Plus className="w-4 h-4" />
@@ -430,7 +430,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
       </div>
 
       {/* Islamic Wellness Section */}
-      <div>
+      <div className="w-full">
         <div className="flex items-center justify-between mb-3">
           <div>
             <h2 className="text-base font-bold text-[#12302D] tracking-tight">
@@ -449,19 +449,19 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           </button>
         </div>
 
-        <div className="grid grid-cols-3 gap-2.5">
+        <div className="grid grid-cols-3 gap-1.5 sm:gap-2.5">
           <button
             type="button"
             id="wellness-card-duas"
             onClick={() => handleWellnessClick('duas')}
-            className="p-3 rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-50/50 border border-emerald-200/60 shadow-sm flex flex-col items-start text-left active:scale-95 transition-all"
+            className="p-2 sm:p-3 rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-50/50 border border-emerald-200/60 shadow-sm flex flex-col items-start text-left active:scale-95 transition-all min-w-0"
           >
-            <div className="w-8 h-8 rounded-xl bg-[#0F766E] text-white flex items-center justify-center mb-2 shadow-sm">
-              <Sparkles className="w-4 h-4 text-[#C9A227]" />
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-[#0F766E] text-white flex items-center justify-center mb-2 shadow-sm shrink-0">
+              <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#C9A227]" />
             </div>
-            <h3 className="text-xs font-bold text-[#12302D]">Duas for Healing</h3>
-            <p className="text-[10px] text-slate-500 mt-0.5 line-clamp-2">
-              Authentic Sunnah prayers for pain & recovery
+            <h3 className="text-[11px] sm:text-xs font-bold text-[#12302D] truncate w-full">Duas for Shifa</h3>
+            <p className="text-[9px] sm:text-[10px] text-slate-500 mt-0.5 line-clamp-2">
+              Sunnah prayers for healing
             </p>
           </button>
 
@@ -469,14 +469,14 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             type="button"
             id="wellness-card-ramadan"
             onClick={() => handleWellnessClick('ramadan')}
-            className="p-3 rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50/40 border border-amber-200/60 shadow-sm flex flex-col items-start text-left active:scale-95 transition-all"
+            className="p-2 sm:p-3 rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50/40 border border-amber-200/60 shadow-sm flex flex-col items-start text-left active:scale-95 transition-all min-w-0"
           >
-            <div className="w-8 h-8 rounded-xl bg-[#C9A227] text-white flex items-center justify-center mb-2 shadow-sm">
-              <Moon className="w-4 h-4 text-white" />
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-[#C9A227] text-white flex items-center justify-center mb-2 shadow-sm shrink-0">
+              <Moon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
             </div>
-            <h3 className="text-xs font-bold text-[#12302D]">Ramadan Health</h3>
-            <p className="text-[10px] text-slate-500 mt-0.5 line-clamp-2">
-              Hydration, nutrition & diabetes fasting advice
+            <h3 className="text-[11px] sm:text-xs font-bold text-[#12302D] truncate w-full">Ramadan Care</h3>
+            <p className="text-[9px] sm:text-[10px] text-slate-500 mt-0.5 line-clamp-2">
+              Hydration & fasting meds
             </p>
           </button>
 
@@ -484,14 +484,14 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             type="button"
             id="wellness-card-daily"
             onClick={() => handleWellnessClick('hajj')}
-            className="p-3 rounded-2xl bg-gradient-to-br from-teal-50 to-cyan-50/40 border border-teal-200/60 shadow-sm flex flex-col items-start text-left active:scale-95 transition-all"
+            className="p-2 sm:p-3 rounded-2xl bg-gradient-to-br from-teal-50 to-cyan-50/40 border border-teal-200/60 shadow-sm flex flex-col items-start text-left active:scale-95 transition-all min-w-0"
           >
-            <div className="w-8 h-8 rounded-xl bg-[#14B8A6] text-white flex items-center justify-center mb-2 shadow-sm">
-              <HeartHandshake className="w-4 h-4 text-white" />
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-[#14B8A6] text-white flex items-center justify-center mb-2 shadow-sm shrink-0">
+              <HeartHandshake className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
             </div>
-            <h3 className="text-xs font-bold text-[#12302D]">Hajj & Umrah</h3>
-            <p className="text-[10px] text-slate-500 mt-0.5 line-clamp-2">
-              Pilgrim travel vaccines & health checklist
+            <h3 className="text-[11px] sm:text-xs font-bold text-[#12302D] truncate w-full">Hajj & Umrah</h3>
+            <p className="text-[9px] sm:text-[10px] text-slate-500 mt-0.5 line-clamp-2">
+              Vaccines & health prep
             </p>
           </button>
         </div>

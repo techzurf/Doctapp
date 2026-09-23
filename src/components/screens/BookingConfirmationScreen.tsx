@@ -69,10 +69,10 @@ export const BookingConfirmationScreen: React.FC<BookingConfirmationScreenProps>
   // SUCCESS SCREEN
   if (isConfirmed && createdAppointment) {
     return (
-      <div id="booking-success-screen" className="fixed inset-0 z-50 bg-[#F7FAF9] flex flex-col justify-between p-6 max-w-lg mx-auto safe-top safe-bottom">
-        <div className="flex-1 flex flex-col items-center justify-center text-center my-auto">
+      <div id="booking-success-screen" className="fixed inset-0 z-50 bg-[#F7FAF9] flex flex-col justify-between p-5 sm:p-6 max-w-lg mx-auto w-full min-w-0 safe-top safe-bottom overflow-y-auto">
+        <div className="flex-1 flex flex-col items-center justify-center text-center my-auto w-full min-w-0">
           {/* Animated Green Badge */}
-          <div className="w-20 h-20 rounded-full bg-emerald-50 border-2 border-emerald-500/30 flex items-center justify-center text-emerald-600 mb-5 shadow-lg shadow-emerald-500/10 animate-in zoom-in duration-500">
+          <div className="w-20 h-20 rounded-full bg-emerald-50 border-2 border-emerald-500/30 flex items-center justify-center text-emerald-600 mb-5 shadow-lg shadow-emerald-500/10 animate-in zoom-in duration-500 shrink-0">
             <CheckCircle2 className="w-12 h-12" />
           </div>
 
@@ -92,26 +92,26 @@ export const BookingConfirmationScreen: React.FC<BookingConfirmationScreenProps>
               <img
                 src={createdAppointment.doctorPhoto}
                 alt={createdAppointment.doctorName}
-                className="w-12 h-12 rounded-xl object-cover"
+                className="w-12 h-12 rounded-xl object-cover shrink-0"
               />
-              <div>
-                <h3 className="text-xs font-bold text-[#12302D]">{createdAppointment.doctorName}</h3>
-                <p className="text-[11px] text-[#0F766E] font-medium">{createdAppointment.doctorSpecialty}</p>
-                <p className="text-[10px] text-slate-500">{createdAppointment.consultationType}</p>
+              <div className="min-w-0 flex-1">
+                <h3 className="text-xs font-bold text-[#12302D] truncate">{createdAppointment.doctorName}</h3>
+                <p className="text-[11px] text-[#0F766E] font-medium truncate">{createdAppointment.doctorSpecialty}</p>
+                <p className="text-[10px] text-slate-500 truncate">{createdAppointment.consultationType}</p>
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-2 text-xs">
-              <div className="p-2.5 rounded-xl bg-slate-50">
-                <span className="text-[10px] text-slate-400 block font-medium">Date & Time</span>
-                <span className="font-bold text-[#12302D] mt-0.5 block">{createdAppointment.date}</span>
-                <span className="text-[11px] text-[#0F766E] font-semibold">{createdAppointment.time}</span>
+              <div className="p-2.5 rounded-xl bg-slate-50 min-w-0">
+                <span className="text-[10px] text-slate-400 block font-medium truncate">Date & Time</span>
+                <span className="font-bold text-[#12302D] mt-0.5 block truncate">{createdAppointment.date}</span>
+                <span className="text-[11px] text-[#0F766E] font-semibold truncate block">{createdAppointment.time}</span>
               </div>
 
-              <div className="p-2.5 rounded-xl bg-slate-50">
-                <span className="text-[10px] text-slate-400 block font-medium">Patient</span>
+              <div className="p-2.5 rounded-xl bg-slate-50 min-w-0">
+                <span className="text-[10px] text-slate-400 block font-medium truncate">Patient</span>
                 <span className="font-bold text-[#12302D] mt-0.5 block truncate">{createdAppointment.patientName}</span>
-                <span className="text-[11px] text-slate-500 font-medium">({createdAppointment.relation})</span>
+                <span className="text-[11px] text-slate-500 font-medium truncate block">({createdAppointment.relation})</span>
               </div>
             </div>
 
@@ -123,7 +123,7 @@ export const BookingConfirmationScreen: React.FC<BookingConfirmationScreenProps>
         </div>
 
         {/* Action Buttons */}
-        <div className="w-full space-y-3 pt-4">
+        <div className="w-full space-y-3 pt-4 shrink-0">
           <button
             type="button"
             id="view-booked-appointment-btn"
@@ -131,7 +131,7 @@ export const BookingConfirmationScreen: React.FC<BookingConfirmationScreenProps>
             className="w-full py-3.5 px-6 rounded-2xl bg-[#0F766E] hover:bg-[#0D655E] text-white text-xs font-bold shadow-md shadow-teal-900/15 flex items-center justify-center gap-2 active:scale-95 transition-all text-center"
           >
             <span>View Appointment</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-4 h-4 shrink-0" />
           </button>
 
           <button
@@ -149,21 +149,21 @@ export const BookingConfirmationScreen: React.FC<BookingConfirmationScreenProps>
 
   // REVIEW & PAYMENT CONFIRMATION SCREEN
   return (
-    <div id="booking-confirmation-screen" className="pb-28 pt-2 px-4 max-w-lg mx-auto space-y-4">
+    <div id="booking-confirmation-screen" className="pb-28 pt-2 px-4 max-w-lg mx-auto w-full min-w-0 space-y-4">
       {/* Header */}
       <div className="flex items-center gap-3 py-2">
         <button
           type="button"
           id="confirm-apt-back-btn"
           onClick={onBack}
-          className="p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-sm text-[#12302D] hover:bg-slate-50 transition-colors"
+          className="p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-sm text-[#12302D] hover:bg-slate-50 transition-colors shrink-0"
           aria-label="Go back"
         >
           <ArrowLeft className="w-4 h-4" />
         </button>
-        <div>
-          <h1 className="text-lg font-bold text-[#12302D]">Confirm Appointment</h1>
-          <p className="text-xs text-slate-500">Step 2 of 2: Review & Payment</p>
+        <div className="min-w-0 flex-1">
+          <h1 className="text-lg font-bold text-[#12302D] truncate">Confirm Appointment</h1>
+          <p className="text-xs text-slate-500 truncate">Step 2 of 2: Review & Payment</p>
         </div>
       </div>
 
@@ -326,9 +326,9 @@ export const BookingConfirmationScreen: React.FC<BookingConfirmationScreenProps>
           <span>Doctor Consultation Fee</span>
           <span>₹{bookingData.doctor.fee}</span>
         </div>
-        <div className="flex justify-between text-slate-600">
-          <span>ShifaCare Platform Fee</span>
-          <span className="text-emerald-600 font-semibold">FREE (Prototype Promo)</span>
+        <div className="flex justify-between text-slate-600 gap-2">
+          <span className="truncate">ShifaCare Platform Fee</span>
+          <span className="text-emerald-600 font-semibold shrink-0">FREE</span>
         </div>
         <div className="flex justify-between text-slate-600">
           <span>Taxes & GST</span>
@@ -341,13 +341,13 @@ export const BookingConfirmationScreen: React.FC<BookingConfirmationScreenProps>
       </div>
 
       {/* Sticky Bottom Confirm Button */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200/80 p-4 pb-[env(safe-area-inset-bottom,16px)] shadow-lg">
-        <div className="max-w-lg mx-auto flex items-center justify-between gap-4">
-          <div>
-            <span className="text-[10px] font-semibold text-slate-400 block uppercase tracking-wider">
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200/80 p-4 pb-[env(safe-area-inset-bottom,16px)] shadow-lg w-full">
+        <div className="max-w-lg mx-auto flex items-center justify-between gap-3 w-full min-w-0">
+          <div className="min-w-0">
+            <span className="text-[10px] font-semibold text-slate-400 block uppercase tracking-wider truncate">
               Total Fee
             </span>
-            <span className="text-base font-extrabold text-[#12302D]">
+            <span className="text-base font-extrabold text-[#12302D] block truncate">
               ₹{bookingData.doctor.fee}
             </span>
           </div>
@@ -356,7 +356,7 @@ export const BookingConfirmationScreen: React.FC<BookingConfirmationScreenProps>
             type="button"
             id="confirm-appointment-submit-btn"
             onClick={handleConfirm}
-            className="flex-1 py-3.5 px-6 rounded-2xl bg-[#0F766E] hover:bg-[#0D655E] text-white text-xs font-bold shadow-md shadow-teal-900/15 active:scale-95 transition-all text-center"
+            className="flex-1 py-3.5 px-4 sm:px-6 rounded-2xl bg-[#0F766E] hover:bg-[#0D655E] text-white text-xs font-bold shadow-md shadow-teal-900/15 active:scale-95 transition-all text-center shrink-0"
           >
             Confirm Appointment
           </button>

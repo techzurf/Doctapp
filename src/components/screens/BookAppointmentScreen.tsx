@@ -75,21 +75,21 @@ export const BookAppointmentScreen: React.FC<BookAppointmentScreenProps> = ({
   };
 
   return (
-    <div id="book-appointment-screen" className="pb-28 pt-2 px-4 max-w-lg mx-auto space-y-5">
+    <div id="book-appointment-screen" className="pb-28 pt-2 px-4 max-w-lg mx-auto w-full min-w-0 space-y-5">
       {/* Header */}
       <div className="flex items-center gap-3 py-2">
         <button
           type="button"
           id="book-apt-back-btn"
           onClick={onBack}
-          className="p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-sm text-[#12302D] hover:bg-slate-50 transition-colors"
+          className="p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-sm text-[#12302D] hover:bg-slate-50 transition-colors shrink-0"
           aria-label="Go back"
         >
           <ArrowLeft className="w-4 h-4" />
         </button>
-        <div>
-          <h1 className="text-lg font-bold text-[#12302D]">Book Appointment</h1>
-          <p className="text-xs text-slate-500">Step 1 of 2: Select Date & Time</p>
+        <div className="min-w-0 flex-1">
+          <h1 className="text-lg font-bold text-[#12302D] truncate">Book Appointment</h1>
+          <p className="text-xs text-slate-500 truncate">Step 1 of 2: Select Date & Time</p>
         </div>
       </div>
 
@@ -186,7 +186,7 @@ export const BookAppointmentScreen: React.FC<BookAppointmentScreenProps> = ({
             {selectedPatient.relation}
           </span>
         </div>
-        <div className="flex gap-2 overflow-x-auto pb-1 -mx-2 px-2 no-scrollbar">
+        <div className="flex gap-2 overflow-x-auto pb-1 -mx-2 px-2 no-scrollbar w-full max-w-full">
           {familyMembers.map((member) => (
             <button
               key={member.id}
@@ -220,7 +220,7 @@ export const BookAppointmentScreen: React.FC<BookAppointmentScreenProps> = ({
         <label className="block text-xs font-bold text-[#12302D]">
           Select Date
         </label>
-        <div className="grid grid-cols-5 gap-1.5">
+        <div className="grid grid-cols-5 gap-1 sm:gap-1.5">
           {dates.map((d) => {
             const fullDateString = `${d.label}, ${d.date}`;
             const isSelected = selectedDate.includes(d.date);
@@ -230,16 +230,16 @@ export const BookAppointmentScreen: React.FC<BookAppointmentScreenProps> = ({
                 type="button"
                 id={`date-btn-${d.date}`}
                 onClick={() => setSelectedDate(fullDateString)}
-                className={`py-2.5 px-1 rounded-xl text-center flex flex-col items-center justify-center border transition-all ${
+                className={`py-2 px-0.5 sm:px-1 rounded-xl text-center flex flex-col items-center justify-center border transition-all min-w-0 ${
                   isSelected
                     ? 'bg-[#0F766E] text-white border-[#0F766E] shadow-sm'
                     : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
                 }`}
               >
-                <span className={`text-[10px] font-medium ${isSelected ? 'text-teal-100' : 'text-slate-400'}`}>
+                <span className={`text-[9px] sm:text-[10px] font-medium truncate w-full ${isSelected ? 'text-teal-100' : 'text-slate-400'}`}>
                   {d.label}
                 </span>
-                <span className="text-xs font-bold mt-0.5">
+                <span className="text-[11px] sm:text-xs font-bold mt-0.5 truncate w-full">
                   {d.date}
                 </span>
               </button>
@@ -254,7 +254,7 @@ export const BookAppointmentScreen: React.FC<BookAppointmentScreenProps> = ({
           <label className="block text-xs font-bold text-[#12302D]">
             Available Time Slots
           </label>
-          <div className="flex items-center gap-3 text-[10px] text-slate-500 font-medium">
+          <div className="flex items-center gap-2.5 text-[10px] text-slate-500 font-medium">
             <span className="flex items-center gap-1">
               <span className="w-2 h-2 rounded-full bg-teal-500" /> Available
             </span>
@@ -264,7 +264,7 @@ export const BookAppointmentScreen: React.FC<BookAppointmentScreenProps> = ({
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
           {timeSlots.map((slot) => {
             const isSelected = selectedTime === slot.time && slot.available;
             return (
@@ -274,7 +274,7 @@ export const BookAppointmentScreen: React.FC<BookAppointmentScreenProps> = ({
                 id={`slot-btn-${slot.time.replace(/[: ]/g, '-')}`}
                 disabled={!slot.available}
                 onClick={() => slot.available && setSelectedTime(slot.time)}
-                className={`py-2.5 px-2 rounded-xl text-xs font-semibold border transition-all ${
+                className={`py-2 sm:py-2.5 px-1 sm:px-2 rounded-xl text-[11px] sm:text-xs font-semibold border transition-all truncate text-center ${
                   isSelected
                     ? 'bg-[#0F766E] text-white border-[#0F766E] shadow-sm'
                     : slot.available
@@ -290,13 +290,13 @@ export const BookAppointmentScreen: React.FC<BookAppointmentScreenProps> = ({
       </div>
 
       {/* Sticky Bottom Continue Button */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200/80 p-4 pb-[env(safe-area-inset-bottom,16px)] shadow-lg">
-        <div className="max-w-lg mx-auto flex items-center justify-between gap-4">
-          <div>
-            <span className="text-[10px] font-semibold text-slate-400 block uppercase tracking-wider">
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200/80 p-4 pb-[env(safe-area-inset-bottom,16px)] shadow-lg w-full">
+        <div className="max-w-lg mx-auto flex items-center justify-between gap-3 w-full min-w-0">
+          <div className="min-w-0">
+            <span className="text-[10px] font-semibold text-slate-400 block uppercase tracking-wider truncate">
               Selected Time
             </span>
-            <span className="text-xs font-extrabold text-[#12302D] block">
+            <span className="text-xs font-extrabold text-[#12302D] block truncate">
               {selectedDate.split(',')[0]} • {selectedTime}
             </span>
           </div>
@@ -305,10 +305,10 @@ export const BookAppointmentScreen: React.FC<BookAppointmentScreenProps> = ({
             type="button"
             id="book-continue-btn"
             onClick={handleContinue}
-            className="flex-1 py-3.5 px-6 rounded-2xl bg-[#0F766E] hover:bg-[#0D655E] text-white text-xs font-bold shadow-md shadow-teal-900/15 flex items-center justify-center gap-2 active:scale-95 transition-all text-center"
+            className="flex-1 py-3.5 px-4 sm:px-6 rounded-2xl bg-[#0F766E] hover:bg-[#0D655E] text-white text-xs font-bold shadow-md shadow-teal-900/15 flex items-center justify-center gap-2 active:scale-95 transition-all text-center shrink-0"
           >
             <span>Review & Pay</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-4 h-4 shrink-0" />
           </button>
         </div>
       </div>

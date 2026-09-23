@@ -13,6 +13,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess, onSkip }) => 
   const [fullName, setFullName] = useState('Ahmed Mohammed');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [authNotice, setAuthNotice] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,12 +35,12 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess, onSkip }) => 
   return (
     <div
       id="auth-screen"
-      className="fixed inset-0 z-50 flex flex-col justify-between bg-[#F7FAF9] text-[#12302D] px-6 py-8 safe-top safe-bottom select-none overflow-y-auto"
+      className="fixed inset-0 z-50 flex flex-col justify-between bg-[#F7FAF9] text-[#12302D] px-5 sm:px-6 py-6 sm:py-8 safe-top safe-bottom select-none overflow-y-auto w-full max-w-full min-w-0"
     >
       {/* Top Header */}
-      <div className="flex justify-between items-center w-full">
+      <div className="flex justify-between items-center w-full min-w-0">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-xl bg-[#0F766E] flex items-center justify-center text-white shadow-sm">
+          <div className="w-8 h-8 rounded-xl bg-[#0F766E] flex items-center justify-center text-white shadow-sm shrink-0">
             <ShieldCheck className="w-5 h-5 text-white" />
           </div>
           <span className="font-bold text-lg text-[#0F766E] tracking-tight">ShifaCare</span>
@@ -49,7 +50,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess, onSkip }) => 
             type="button"
             id="auth-guest-btn"
             onClick={onSkip}
-            className="text-xs font-semibold text-[#64748B] hover:text-[#0F766E] px-3 py-1.5 rounded-full hover:bg-teal-50 transition-colors"
+            className="text-xs font-semibold text-[#64748B] hover:text-[#0F766E] px-3 py-1.5 rounded-full hover:bg-teal-50 transition-colors shrink-0"
           >
             Guest Demo
           </button>
@@ -57,7 +58,13 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess, onSkip }) => 
       </div>
 
       {/* Main Form Body */}
-      <div className="w-full max-w-sm mx-auto my-auto py-6">
+      <div className="w-full max-w-sm mx-auto my-auto py-4 sm:py-6 min-w-0">
+        {authNotice && (
+          <div className="mb-4 p-3 rounded-xl bg-teal-50 border border-teal-200 text-xs text-[#0F766E] text-center font-medium animate-in fade-in">
+            {authNotice}
+          </div>
+        )}
+
         <div className="mb-6 text-left">
           <span className="text-xs font-semibold uppercase tracking-wider text-[#C9A227]">
             {isSignUp ? 'New Patient Registration' : 'Secure Patient Sign In'}
@@ -121,7 +128,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess, onSkip }) => 
                 <button
                   type="button"
                   id="auth-forgot-password-btn"
-                  onClick={() => alert('Demo: OTP will be sent to your registered mobile number')}
+                  onClick={() => setAuthNotice('Demo: OTP sent to your registered mobile number')}
                   className="text-[11px] font-semibold text-[#0F766E] hover:underline"
                 >
                   Forgot Password?

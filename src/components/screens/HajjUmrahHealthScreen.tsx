@@ -39,21 +39,21 @@ export const HajjUmrahHealthScreen: React.FC<HajjUmrahHealthScreenProps> = ({
   const checklist = HAJJ_UMRAH_CHECKLIST;
 
   return (
-    <div id="hajj-health-screen" className="pb-24 pt-2 px-4 max-w-lg mx-auto space-y-4">
+    <div id="hajj-health-screen" className="pb-24 pt-2 px-4 max-w-lg mx-auto w-full min-w-0 space-y-4">
       {/* Header */}
-      <div className="flex items-center gap-3 py-2">
+      <div className="flex items-center gap-3 py-2 w-full min-w-0">
         <button
           type="button"
           id="hajj-back-btn"
           onClick={onBack}
-          className="p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-sm text-[#12302D] hover:bg-slate-50 transition-colors"
+          className="p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-sm text-[#12302D] hover:bg-slate-50 transition-colors shrink-0"
           aria-label="Go back"
         >
           <ArrowLeft className="w-4 h-4" />
         </button>
-        <div>
-          <h1 className="text-lg font-bold text-[#12302D]">Hajj & Umrah Health</h1>
-          <p className="text-xs text-slate-500">Pilgrim preparation & medical safety</p>
+        <div className="min-w-0 flex-1">
+          <h1 className="text-lg font-bold text-[#12302D] truncate">Hajj & Umrah Health</h1>
+          <p className="text-xs text-slate-500 truncate">Pilgrim preparation & medical safety</p>
         </div>
       </div>
 
@@ -177,7 +177,7 @@ export const HajjUmrahHealthScreen: React.FC<HajjUmrahHealthScreenProps> = ({
       </div>
 
       {/* Heat & Foot Care Quick Tips */}
-      <div className="grid grid-cols-2 gap-3 text-xs">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
         <div className="p-3.5 rounded-2xl bg-amber-50/70 border border-amber-200/60 space-y-1">
           <div className="flex items-center gap-1.5 text-amber-900 font-bold">
             <Sun className="w-4 h-4 text-amber-600" />

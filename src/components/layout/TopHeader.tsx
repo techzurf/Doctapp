@@ -20,8 +20,8 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
   const [showCityPicker, setShowCityPicker] = useState(false);
 
   return (
-    <header className="sticky top-0 z-30 bg-[#F7FAF9]/90 backdrop-blur-md border-b border-slate-200/60 px-4 py-2.5 safe-top">
-      <div className="max-w-lg mx-auto flex items-center justify-between">
+    <header className="sticky top-0 z-30 bg-[#F7FAF9]/90 backdrop-blur-md border-b border-slate-200/60 px-4 py-2.5 safe-top w-full">
+      <div className="max-w-lg mx-auto flex items-center justify-between w-full min-w-0">
         {/* City Location Selector */}
         <div className="relative">
           <button

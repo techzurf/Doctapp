@@ -88,22 +88,22 @@ export const FamilyHealthScreen: React.FC<FamilyHealthScreenProps> = ({
   };
 
   return (
-    <div id="family-health-screen" className="pb-24 pt-2 px-4 max-w-lg mx-auto space-y-4">
+    <div id="family-health-screen" className="pb-24 pt-2 px-4 max-w-lg mx-auto w-full min-w-0 space-y-4">
       {/* Top Header */}
-      <div className="flex items-center justify-between py-2">
-        <div className="flex items-center gap-3">
+      <div className="flex items-center justify-between py-2 w-full min-w-0">
+        <div className="flex items-center gap-3 min-w-0 flex-1">
           <button
             type="button"
             id="family-back-btn"
             onClick={onBack}
-            className="p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-sm text-[#12302D] hover:bg-slate-50 transition-colors"
+            className="p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-sm text-[#12302D] hover:bg-slate-50 transition-colors shrink-0"
             aria-label="Go back"
           >
             <ArrowLeft className="w-4 h-4" />
           </button>
-          <div>
-            <h1 className="text-lg font-bold text-[#12302D]">My Family</h1>
-            <p className="text-xs text-slate-500">Shared health records & profiles</p>
+          <div className="min-w-0 flex-1">
+            <h1 className="text-lg font-bold text-[#12302D] truncate">My Family</h1>
+            <p className="text-xs text-slate-500 truncate">Shared health records & profiles</p>
           </div>
         </div>
 
@@ -111,7 +111,7 @@ export const FamilyHealthScreen: React.FC<FamilyHealthScreenProps> = ({
           type="button"
           id="open-add-member-modal-btn"
           onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#0F766E] text-white text-xs font-bold shadow-sm hover:bg-[#0D655E] active:scale-95 transition-all"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#0F766E] text-white text-xs font-bold shadow-sm hover:bg-[#0D655E] active:scale-95 transition-all shrink-0"
         >
           <Plus className="w-3.5 h-3.5" />
           <span>Add</span>
@@ -119,7 +119,7 @@ export const FamilyHealthScreen: React.FC<FamilyHealthScreenProps> = ({
       </div>
 
       {/* Family Members Horizontal Selector */}
-      <div className="flex gap-2.5 overflow-x-auto pb-2 -mx-4 px-4 no-scrollbar">
+      <div className="flex gap-2.5 overflow-x-auto pb-2 -mx-4 px-4 no-scrollbar w-full max-w-full">
         {familyMembers.map((member) => {
           const isSelected = member.id === currentMember.id;
           return (
@@ -128,7 +128,7 @@ export const FamilyHealthScreen: React.FC<FamilyHealthScreenProps> = ({
               type="button"
               id={`select-family-member-${member.id}`}
               onClick={() => setSelectedMemberId(member.id)}
-              className={`p-3 rounded-2xl border flex flex-col items-center text-center shrink-0 min-w-[110px] transition-all ${
+              className={`p-3 rounded-2xl border flex flex-col items-center text-center shrink-0 w-[110px] min-w-[110px] max-w-[110px] transition-all ${
                 isSelected
                   ? 'bg-teal-50/80 border-[#0F766E] ring-1 ring-[#0F766E] shadow-sm'
                   : 'bg-white border-slate-200/80 hover:bg-slate-50'
@@ -147,7 +147,7 @@ export const FamilyHealthScreen: React.FC<FamilyHealthScreenProps> = ({
               <h2 className="text-xs font-bold text-[#12302D] truncate w-full">
                 {member.name.split(' ')[0]}
               </h2>
-              <span className="text-[10px] text-slate-500 font-medium">
+              <span className="text-[10px] text-slate-500 font-medium truncate w-full">
                 {member.relation}
               </span>
             </button>
@@ -157,7 +157,7 @@ export const FamilyHealthScreen: React.FC<FamilyHealthScreenProps> = ({
         <button
           type="button"
           onClick={() => setShowAddModal(true)}
-          className="p-3 rounded-2xl border border-dashed border-teal-300 bg-teal-50/40 flex flex-col items-center justify-center text-center shrink-0 min-w-[90px] hover:bg-teal-50"
+          className="p-3 rounded-2xl border border-dashed border-teal-300 bg-teal-50/40 flex flex-col items-center justify-center text-center shrink-0 w-[90px] min-w-[90px] max-w-[90px] hover:bg-teal-50"
         >
           <div className="w-9 h-9 rounded-full bg-white text-[#0F766E] flex items-center justify-center shadow-xs mb-1">
             <Plus className="w-4 h-4" />
@@ -168,22 +168,22 @@ export const FamilyHealthScreen: React.FC<FamilyHealthScreenProps> = ({
 
       {/* Selected Member Health Overview Card */}
       <div className="bg-white rounded-3xl p-5 border border-slate-200/80 shadow-sm space-y-4">
-        <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-          <div>
+        <div className="flex items-center justify-between pb-3 border-b border-slate-100 gap-2">
+          <div className="min-w-0 flex-1">
             <div className="flex items-center gap-1.5">
-              <h2 className="text-base font-extrabold text-[#12302D]">
+              <h2 className="text-base font-extrabold text-[#12302D] truncate">
                 {currentMember.name}
               </h2>
-              <span className="px-2 py-0.5 rounded-full bg-teal-50 text-[#0F766E] text-[10px] font-bold">
+              <span className="px-2 py-0.5 rounded-full bg-teal-50 text-[#0F766E] text-[10px] font-bold shrink-0">
                 {currentMember.relation}
               </span>
             </div>
-            <p className="text-xs text-slate-500 mt-0.5">
+            <p className="text-xs text-slate-500 mt-0.5 truncate">
               {currentMember.age} Years • {currentMember.gender}
             </p>
           </div>
 
-          <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-rose-50 text-rose-700 text-xs font-bold border border-rose-100">
+          <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-rose-50 text-rose-700 text-xs font-bold border border-rose-100 shrink-0">
             <Droplet className="w-3.5 h-3.5 fill-rose-500 text-rose-500" />
             <span>{currentMember.bloodGroup}</span>
           </div>
@@ -215,7 +215,7 @@ export const FamilyHealthScreen: React.FC<FamilyHealthScreenProps> = ({
         </div>
 
         {/* Member Actions: Edit & Delete Profile */}
-        <div className="pt-2 border-t border-slate-100 flex items-center justify-end gap-2">
+        <div className="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-end gap-2">
           <button
             type="button"
             id={`edit-member-btn-${currentMember.id}`}

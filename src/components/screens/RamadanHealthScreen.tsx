@@ -29,21 +29,21 @@ export const RamadanHealthScreen: React.FC<RamadanHealthScreenProps> = ({
   const guides = RAMADAN_HEALTH_GUIDES;
 
   return (
-    <div id="ramadan-health-screen" className="pb-24 pt-2 px-4 max-w-lg mx-auto space-y-4">
+    <div id="ramadan-health-screen" className="pb-24 pt-2 px-4 max-w-lg mx-auto w-full min-w-0 space-y-4">
       {/* Header */}
-      <div className="flex items-center gap-3 py-2">
+      <div className="flex items-center gap-3 py-2 w-full min-w-0">
         <button
           type="button"
           id="ramadan-back-btn"
           onClick={onBack}
-          className="p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-sm text-[#12302D] hover:bg-slate-50 transition-colors"
+          className="p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-sm text-[#12302D] hover:bg-slate-50 transition-colors shrink-0"
           aria-label="Go back"
         >
           <ArrowLeft className="w-4 h-4" />
         </button>
-        <div>
-          <h1 className="text-lg font-bold text-[#12302D]">Ramadan & Health Guide</h1>
-          <p className="text-xs text-slate-500">Medical guidelines aligned with Shariah</p>
+        <div className="min-w-0 flex-1">
+          <h1 className="text-lg font-bold text-[#12302D] truncate">Ramadan & Health Guide</h1>
+          <p className="text-xs text-slate-500 truncate">Medical guidelines aligned with Shariah</p>
         </div>
       </div>
 
@@ -78,22 +78,22 @@ export const RamadanHealthScreen: React.FC<RamadanHealthScreenProps> = ({
                 onClick={() => setExpandedTopic(isExpanded ? '' : item.id)}
                 className="w-full p-4 flex items-center justify-between text-left hover:bg-slate-50 transition-colors"
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 min-w-0 flex-1">
                   <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center shrink-0">
                     {item.icon === 'diabetes' && <HeartPulse className="w-5 h-5" />}
                     {item.icon === 'meds' && <Pill className="w-5 h-5" />}
                     {item.icon === 'water' && <Droplet className="w-5 h-5" />}
                     {item.icon === 'pregnancy' && <AlertCircle className="w-5 h-5" />}
                   </div>
-                  <div>
-                    <h3 className="text-xs font-bold text-[#12302D]">{item.title}</h3>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-xs font-bold text-[#12302D] truncate">{item.title}</h3>
                     <p className="text-[10px] text-slate-500 line-clamp-1">{item.summary}</p>
                   </div>
                 </div>
                 {isExpanded ? (
-                  <ChevronUp className="w-4 h-4 text-slate-400" />
+                  <ChevronUp className="w-4 h-4 text-slate-400 shrink-0 ml-2" />
                 ) : (
-                  <ChevronDown className="w-4 h-4 text-slate-400" />
+                  <ChevronDown className="w-4 h-4 text-slate-400 shrink-0 ml-2" />
                 )}
               </button>
 
@@ -143,7 +143,7 @@ export const RamadanHealthScreen: React.FC<RamadanHealthScreenProps> = ({
           </span>
         </div>
 
-        <div className="grid grid-cols-4 gap-2 text-center text-xs">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
           <div className="p-2 rounded-xl bg-teal-50 border border-teal-100">
             <span className="text-[10px] font-bold text-[#0F766E] block">Iftar</span>
             <span className="text-xs font-extrabold text-[#12302D]">2 Glasses</span>
@@ -171,15 +171,15 @@ export const RamadanHealthScreen: React.FC<RamadanHealthScreenProps> = ({
       </div>
 
       {/* Consult Specialist CTA */}
-      <div className="p-4 rounded-2xl bg-teal-50/70 border border-teal-200/70 flex items-center justify-between">
-        <div>
+      <div className="p-4 rounded-2xl bg-teal-50/70 border border-teal-200/70 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div className="min-w-0 flex-1">
           <h4 className="text-xs font-bold text-[#12302D]">Have chronic diabetes or hypertension?</h4>
           <p className="text-[11px] text-slate-500">Get personalized Ramadan dosage evaluation</p>
         </div>
         <button
           type="button"
           onClick={() => onBookSpecialist('Diabetology')}
-          className="px-3.5 py-2 rounded-xl bg-[#0F766E] text-white text-xs font-bold shadow-2xs hover:bg-[#0D655E] active:scale-95 transition-all"
+          className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-[#0F766E] text-white text-xs font-bold shadow-2xs hover:bg-[#0D655E] active:scale-95 transition-all text-center shrink-0"
         >
           Consult Doctor
         </button>

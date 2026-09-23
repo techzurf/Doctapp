@@ -85,22 +85,22 @@ export const HealthRecordsScreen: React.FC<HealthRecordsScreenProps> = ({
   };
 
   return (
-    <div id="health-records-screen" className="pb-24 pt-2 px-4 max-w-lg mx-auto space-y-4">
+    <div id="health-records-screen" className="pb-24 pt-2 px-4 max-w-lg mx-auto w-full min-w-0 space-y-4">
       {/* Top Header */}
-      <div className="flex items-center justify-between py-2">
-        <div className="flex items-center gap-3">
+      <div className="flex items-center justify-between py-2 w-full min-w-0">
+        <div className="flex items-center gap-3 min-w-0 flex-1">
           <button
             type="button"
             id="records-back-btn"
             onClick={onBack}
-            className="p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-sm text-[#12302D] hover:bg-slate-50 transition-colors"
+            className="p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-sm text-[#12302D] hover:bg-slate-50 transition-colors shrink-0"
             aria-label="Go back"
           >
             <ArrowLeft className="w-4 h-4" />
           </button>
-          <div>
-            <h1 className="text-lg font-bold text-[#12302D]">Health Records</h1>
-            <p className="text-xs text-slate-500">Secure digital medical files</p>
+          <div className="min-w-0 flex-1">
+            <h1 className="text-lg font-bold text-[#12302D] truncate">Health Records</h1>
+            <p className="text-xs text-slate-500 truncate">Secure digital medical files</p>
           </div>
         </div>
 
@@ -108,7 +108,7 @@ export const HealthRecordsScreen: React.FC<HealthRecordsScreenProps> = ({
           type="button"
           id="open-upload-record-btn"
           onClick={() => setShowUploadModal(true)}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#0F766E] text-white text-xs font-bold shadow-sm hover:bg-[#0D655E] active:scale-95 transition-all"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#0F766E] text-white text-xs font-bold shadow-sm hover:bg-[#0D655E] active:scale-95 transition-all shrink-0"
         >
           <UploadCloud className="w-3.5 h-3.5" />
           <span>Upload</span>
@@ -116,7 +116,7 @@ export const HealthRecordsScreen: React.FC<HealthRecordsScreenProps> = ({
       </div>
 
       {/* Family Member Quick Pill Filter */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+      <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar w-full max-w-full">
         <span className="text-[11px] font-bold text-slate-400 pl-1 shrink-0">Member:</span>
         <button
           type="button"
@@ -146,7 +146,7 @@ export const HealthRecordsScreen: React.FC<HealthRecordsScreenProps> = ({
       </div>
 
       {/* Category Tabs */}
-      <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
+      <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar w-full max-w-full">
         {categories.map((cat) => (
           <button
             key={cat}

@@ -344,7 +344,7 @@ export default function App() {
   const upcomingAppointmentCount = appointments.filter(a => a.status === 'upcoming').length;
 
   return (
-    <div id="shifacare-mobile-viewport" className="min-h-screen bg-[#F7FAF9] text-[#12302D] flex flex-col font-sans selection:bg-[#0F766E]/20 selection:text-[#0F766E] antialiased">
+    <div id="shifacare-mobile-viewport" className="min-h-screen w-full max-w-full overflow-x-hidden bg-[#F7FAF9] text-[#12302D] flex flex-col font-sans selection:bg-[#0F766E]/20 selection:text-[#0F766E] antialiased">
       {/* Toast Notifications Overlay */}
       <Toast toasts={toasts} onDismiss={removeToast} />
 
@@ -373,7 +373,7 @@ export default function App() {
 
       {/* MAIN BOTTOM-TAB LAYOUT */}
       {currentScreen === 'main' && (
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col w-full max-w-full min-w-0">
           {/* Top Header shown on Main tabs */}
           <TopHeader
             currentCity={currentCity}
@@ -386,7 +386,7 @@ export default function App() {
             onOpenFamily={() => navigateTo('family_health')}
           />
 
-          <main className="flex-1">
+          <main className="flex-1 w-full max-w-full min-w-0">
             {activeTab === 'home' && (
               <HomeScreen
                 doctors={doctors}

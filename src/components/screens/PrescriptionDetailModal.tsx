@@ -60,26 +60,26 @@ export const PrescriptionDetailModal: React.FC<PrescriptionDetailModalProps> = (
     }
   };
   return (
-    <div id="prescription-detail-modal" className="pb-24 pt-2 px-4 max-w-lg mx-auto space-y-4">
+    <div id="prescription-detail-modal" className="pb-24 pt-2 px-4 max-w-lg mx-auto w-full min-w-0 space-y-4">
       {/* Header bar */}
-      <div className="flex items-center justify-between py-2">
-        <div className="flex items-center gap-3">
+      <div className="flex items-center justify-between py-2 w-full min-w-0">
+        <div className="flex items-center gap-3 min-w-0 flex-1">
           <button
             type="button"
             id="rx-back-btn"
             onClick={onBack}
-            className="p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-sm text-[#12302D] hover:bg-slate-50 transition-colors"
+            className="p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-sm text-[#12302D] hover:bg-slate-50 transition-colors shrink-0"
             aria-label="Go back"
           >
             <ArrowLeft className="w-4 h-4" />
           </button>
-          <div>
-            <h1 className="text-lg font-bold text-[#12302D]">Medical Prescription</h1>
-            <p className="text-xs text-slate-500">Official verified e-prescription</p>
+          <div className="min-w-0 flex-1">
+            <h1 className="text-lg font-bold text-[#12302D] truncate">Medical Prescription</h1>
+            <p className="text-xs text-slate-500 truncate">Official verified e-prescription</p>
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0 ml-2">
           <button
             type="button"
             id="rx-download-btn"
@@ -107,26 +107,26 @@ export const PrescriptionDetailModal: React.FC<PrescriptionDetailModalProps> = (
         <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-[#0F766E] via-teal-600 to-[#C9A227]" />
 
         {/* Doctor Header Block */}
-        <div className="flex items-start justify-between pb-4 border-b border-slate-100">
-          <div>
+        <div className="flex items-start justify-between pb-4 border-b border-slate-100 gap-2">
+          <div className="min-w-0 flex-1">
             <div className="flex items-center gap-1.5">
-              <h2 className="text-base font-extrabold text-[#12302D]">
+              <h2 className="text-base font-extrabold text-[#12302D] truncate">
                 {prescription.doctorName}
               </h2>
-              <ShieldCheck className="w-4 h-4 text-[#0F766E]" />
+              <ShieldCheck className="w-4 h-4 text-[#0F766E] shrink-0" />
             </div>
-            <p className="text-xs font-semibold text-[#0F766E]">
+            <p className="text-xs font-semibold text-[#0F766E] truncate">
               {prescription.doctorDegrees}
             </p>
-            <p className="text-xs text-slate-500 font-medium">
+            <p className="text-xs text-slate-500 font-medium truncate">
               {prescription.doctorClinic}
             </p>
-            <p className="text-[10px] text-slate-400 mt-0.5">
+            <p className="text-[10px] text-slate-400 mt-0.5 truncate">
               MCI Reg No: <span className="font-semibold text-slate-600">{prescription.registrationNo}</span>
             </p>
           </div>
 
-          <div className="text-right">
+          <div className="text-right shrink-0">
             <span className="text-2xl font-serif font-black text-[#0F766E] italic tracking-tight">
               ℞
             </span>
@@ -242,7 +242,7 @@ export const PrescriptionDetailModal: React.FC<PrescriptionDetailModalProps> = (
         )}
 
         {/* Official Doctor Signature & Stamp */}
-        <div className="pt-4 border-t border-slate-100 flex items-end justify-between">
+        <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-2">
           <div className="text-[10px] text-slate-400 space-y-0.5">
             <p>Generated electronically via ShifaCare E-Health</p>
             <p className="text-teal-700 font-semibold">Digitally Signed & Validated</p>
@@ -262,7 +262,7 @@ export const PrescriptionDetailModal: React.FC<PrescriptionDetailModalProps> = (
       </div>
 
       {/* Action Buttons */}
-      <div className="pt-2 flex gap-3">
+      <div className="pt-2 flex flex-col sm:flex-row gap-2.5 sm:gap-3">
         <button
           type="button"
           onClick={handleDownload}

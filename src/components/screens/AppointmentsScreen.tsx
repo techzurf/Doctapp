@@ -66,7 +66,7 @@ export const AppointmentsScreen: React.FC<AppointmentsScreenProps> = ({
   };
 
   return (
-    <div id="appointments-screen" className="pb-24 pt-3 px-4 max-w-lg mx-auto space-y-4">
+    <div id="appointments-screen" className="pb-24 pt-3 px-4 max-w-lg mx-auto w-full min-w-0 space-y-4">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -191,7 +191,7 @@ export const AppointmentsScreen: React.FC<AppointmentsScreenProps> = ({
               </div>
 
               {/* Action Buttons */}
-              <div className="pt-2 border-t border-slate-100 flex items-center gap-2">
+              <div className="pt-2 border-t border-slate-100 flex flex-wrap items-center gap-2">
                 {apt.status === 'upcoming' && (
                   <>
                     {apt.consultationType === 'Online Consultation' ? (
@@ -199,9 +199,9 @@ export const AppointmentsScreen: React.FC<AppointmentsScreenProps> = ({
                         type="button"
                         id={`join-consultation-btn-${apt.id}`}
                         onClick={() => onJoinConsultation(apt)}
-                        className="flex-1 py-2.5 px-3 rounded-xl bg-[#0F766E] hover:bg-[#0D655E] text-white text-xs font-bold shadow-sm flex items-center justify-center gap-1.5 active:scale-95 transition-all"
+                        className="w-full sm:flex-1 py-2.5 px-3 rounded-xl bg-[#0F766E] hover:bg-[#0D655E] text-white text-xs font-bold shadow-sm flex items-center justify-center gap-1.5 active:scale-95 transition-all"
                       >
-                        <Video className="w-3.5 h-3.5" />
+                        <Video className="w-3.5 h-3.5 shrink-0" />
                         <span>Join Consultation</span>
                       </button>
                     ) : (
@@ -209,54 +209,56 @@ export const AppointmentsScreen: React.FC<AppointmentsScreenProps> = ({
                         type="button"
                         id={`clinic-directions-btn-${apt.id}`}
                         onClick={() => setViewingDirectionsApt(apt)}
-                        className="flex-1 py-2.5 px-3 rounded-xl bg-[#0F766E] hover:bg-[#0D655E] text-white text-xs font-bold shadow-sm flex items-center justify-center gap-1.5 active:scale-95 transition-all"
+                        className="w-full sm:flex-1 py-2.5 px-3 rounded-xl bg-[#0F766E] hover:bg-[#0D655E] text-white text-xs font-bold shadow-sm flex items-center justify-center gap-1.5 active:scale-95 transition-all"
                       >
-                        <Building className="w-3.5 h-3.5" />
+                        <Building className="w-3.5 h-3.5 shrink-0" />
                         <span>Clinic Directions</span>
                       </button>
                     )}
 
-                    <button
-                      type="button"
-                      id={`reschedule-btn-${apt.id}`}
-                      onClick={() => setReschedulingApt(apt)}
-                      className="py-2.5 px-3 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-semibold active:scale-95 transition-all"
-                    >
-                      Reschedule
-                    </button>
+                    <div className="flex items-center gap-2 w-full sm:w-auto">
+                      <button
+                        type="button"
+                        id={`reschedule-btn-${apt.id}`}
+                        onClick={() => setReschedulingApt(apt)}
+                        className="flex-1 py-2 px-3 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-semibold active:scale-95 transition-all text-center"
+                      >
+                        Reschedule
+                      </button>
 
-                    <button
-                      type="button"
-                      id={`cancel-btn-${apt.id}`}
-                      onClick={() => setCancellingApt(apt)}
-                      className="py-2.5 px-3 rounded-xl bg-rose-50 hover:bg-rose-100 border border-rose-200/60 text-rose-700 text-xs font-semibold active:scale-95 transition-all"
-                    >
-                      Cancel
-                    </button>
+                      <button
+                        type="button"
+                        id={`cancel-btn-${apt.id}`}
+                        onClick={() => setCancellingApt(apt)}
+                        className="flex-1 py-2 px-3 rounded-xl bg-rose-50 hover:bg-rose-100 border border-rose-200/60 text-rose-700 text-xs font-semibold active:scale-95 transition-all text-center"
+                      >
+                        Cancel
+                      </button>
+                    </div>
                   </>
                 )}
 
                 {apt.status === 'completed' && (
-                  <>
+                  <div className="flex items-center gap-2 w-full">
                     <button
                       type="button"
                       id={`view-prescription-btn-${apt.id}`}
                       onClick={() => onViewPrescription(apt.prescriptionId || 'rx-1')}
-                      className="flex-1 py-2.5 px-3 rounded-xl bg-[#0F766E] hover:bg-[#0D655E] text-white text-xs font-bold shadow-sm flex items-center justify-center gap-1.5 active:scale-95 transition-all"
+                      className="flex-1 py-2.5 px-3 rounded-xl bg-[#0F766E] hover:bg-[#0D655E] text-white text-xs font-bold shadow-sm flex items-center justify-center gap-1.5 active:scale-95 transition-all min-w-0"
                     >
-                      <FileText className="w-3.5 h-3.5" />
-                      <span>View Prescription</span>
+                      <FileText className="w-3.5 h-3.5 shrink-0" />
+                      <span className="truncate">View Prescription</span>
                     </button>
 
                     <button
                       type="button"
                       id={`book-again-btn-${apt.id}`}
                       onClick={onBookNew}
-                      className="py-2.5 px-3 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-semibold active:scale-95 transition-all"
+                      className="py-2.5 px-3 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-semibold active:scale-95 transition-all shrink-0"
                     >
                       Book Again
                     </button>
-                  </>
+                  </div>
                 )}
 
                 {apt.status === 'cancelled' && (

@@ -71,11 +71,11 @@ export const OnlineConsultationScreen: React.FC<OnlineConsultationScreenProps> =
   };
 
   return (
-    <div id="online-consultation-screen" className="fixed inset-0 z-50 bg-[#0F172A] text-white flex flex-col justify-between select-none safe-top safe-bottom">
+    <div id="online-consultation-screen" className="fixed inset-0 z-50 bg-[#0F172A] text-white flex flex-col justify-between select-none safe-top safe-bottom w-full max-w-full overflow-x-hidden">
       {/* Top Header Overlay */}
-      <div className="p-4 bg-gradient-to-b from-black/80 via-black/40 to-transparent flex items-center justify-between z-20">
-        <div className="flex items-center gap-2.5">
-          <div className="relative">
+      <div className="p-4 bg-gradient-to-b from-black/80 via-black/40 to-transparent flex items-center justify-between z-20 w-full min-w-0 gap-3">
+        <div className="flex items-center gap-2.5 min-w-0 flex-1">
+          <div className="relative shrink-0">
             <img
               src={appointment.doctorPhoto}
               alt={appointment.doctorName}
@@ -83,17 +83,17 @@ export const OnlineConsultationScreen: React.FC<OnlineConsultationScreenProps> =
             />
             <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-500 ring-2 ring-black" />
           </div>
-          <div>
+          <div className="min-w-0 flex-1">
             <div className="flex items-center gap-1.5">
-              <h2 className="text-xs font-bold text-white">{appointment.doctorName}</h2>
-              <ShieldCheck className="w-3.5 h-3.5 text-teal-400" />
+              <h2 className="text-xs font-bold text-white truncate">{appointment.doctorName}</h2>
+              <ShieldCheck className="w-3.5 h-3.5 text-teal-400 shrink-0" />
             </div>
-            <p className="text-[10px] text-slate-300 font-medium">{appointment.doctorSpecialty}</p>
+            <p className="text-[10px] text-slate-300 font-medium truncate">{appointment.doctorSpecialty}</p>
           </div>
         </div>
 
         {/* Live Call Duration Badge */}
-        <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-xs font-mono font-bold text-emerald-400">
+        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-xs font-mono font-bold text-emerald-400 shrink-0">
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
           <span>{formatTimer(elapsedSeconds)}</span>
         </div>
@@ -234,18 +234,18 @@ export const OnlineConsultationScreen: React.FC<OnlineConsultationScreenProps> =
       )}
 
       {/* Bottom Controls Bar */}
-      <div className="p-4 bg-gradient-to-t from-black via-black/80 to-transparent z-20 space-y-3">
-        <div className="flex items-center justify-center gap-4">
+      <div className="p-4 bg-gradient-to-t from-black via-black/80 to-transparent z-20 space-y-3 w-full max-w-full">
+        <div className="flex items-center justify-center gap-2.5 sm:gap-4 max-w-sm mx-auto">
           {/* Mute Mic */}
           <button
             type="button"
             id="call-toggle-mic-btn"
             onClick={() => setIsMuted(!isMuted)}
-            className={`w-12 h-12 rounded-full flex items-center justify-center border shadow-md active:scale-95 transition-all ${
+            className={`w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center border shadow-md active:scale-95 transition-all shrink-0 ${
               isMuted ? 'bg-rose-600 text-white border-rose-500' : 'bg-slate-800 text-white border-white/20 hover:bg-slate-700'
             }`}
           >
-            {isMuted ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
+            {isMuted ? <MicOff className="w-4 h-4 sm:w-5 sm:h-5" /> : <Mic className="w-4 h-4 sm:w-5 sm:h-5" />}
           </button>
 
           {/* Toggle Video */}
@@ -253,11 +253,11 @@ export const OnlineConsultationScreen: React.FC<OnlineConsultationScreenProps> =
             type="button"
             id="call-toggle-video-btn"
             onClick={() => setIsVideoOff(!isVideoOff)}
-            className={`w-12 h-12 rounded-full flex items-center justify-center border shadow-md active:scale-95 transition-all ${
+            className={`w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center border shadow-md active:scale-95 transition-all shrink-0 ${
               isVideoOff ? 'bg-rose-600 text-white border-rose-500' : 'bg-slate-800 text-white border-white/20 hover:bg-slate-700'
             }`}
           >
-            {isVideoOff ? <VideoOff className="w-5 h-5" /> : <Video className="w-5 h-5" />}
+            {isVideoOff ? <VideoOff className="w-4 h-4 sm:w-5 sm:h-5" /> : <Video className="w-4 h-4 sm:w-5 sm:h-5" />}
           </button>
 
           {/* Speaker */}
@@ -265,11 +265,11 @@ export const OnlineConsultationScreen: React.FC<OnlineConsultationScreenProps> =
             type="button"
             id="call-toggle-speaker-btn"
             onClick={() => setIsSpeakerOff(!isSpeakerOff)}
-            className={`w-12 h-12 rounded-full flex items-center justify-center border shadow-md active:scale-95 transition-all ${
+            className={`w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center border shadow-md active:scale-95 transition-all shrink-0 ${
               isSpeakerOff ? 'bg-rose-600 text-white border-rose-500' : 'bg-slate-800 text-white border-white/20 hover:bg-slate-700'
             }`}
           >
-            {isSpeakerOff ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+            {isSpeakerOff ? <VolumeX className="w-4 h-4 sm:w-5 sm:h-5" /> : <Volume2 className="w-4 h-4 sm:w-5 sm:h-5" />}
           </button>
 
           {/* Chat Toggle */}
@@ -277,11 +277,11 @@ export const OnlineConsultationScreen: React.FC<OnlineConsultationScreenProps> =
             type="button"
             id="call-toggle-chat-btn"
             onClick={() => setShowChat(!showChat)}
-            className={`w-12 h-12 rounded-full flex items-center justify-center border shadow-md active:scale-95 transition-all relative ${
+            className={`w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center border shadow-md active:scale-95 transition-all relative shrink-0 ${
               showChat ? 'bg-[#0F766E] text-white border-[#14B8A6]' : 'bg-slate-800 text-white border-white/20 hover:bg-slate-700'
             }`}
           >
-            <MessageSquare className="w-5 h-5" />
+            <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5" />
             <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-teal-400" />
           </button>
 
@@ -290,10 +290,10 @@ export const OnlineConsultationScreen: React.FC<OnlineConsultationScreenProps> =
             type="button"
             id="call-end-btn"
             onClick={onEndConsultation}
-            className="w-14 h-12 rounded-full bg-rose-600 hover:bg-rose-700 text-white flex items-center justify-center shadow-lg shadow-rose-900/40 active:scale-95 transition-all"
+            className="w-13 h-11 sm:w-14 sm:h-12 px-3 rounded-full bg-rose-600 hover:bg-rose-700 text-white flex items-center justify-center shadow-lg shadow-rose-900/40 active:scale-95 transition-all shrink-0"
             aria-label="End call"
           >
-            <PhoneOff className="w-6 h-6" />
+            <PhoneOff className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
         </div>
 

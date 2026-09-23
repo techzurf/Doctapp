@@ -34,7 +34,7 @@ export const BottomNavigation: React.FC<BottomNavigationProps> = ({
       aria-label="Bottom Navigation"
       className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#12302D]/10 pb-[env(safe-area-inset-bottom,12px)] pt-1.5 transition-all shadow-[0_-4px_20px_rgba(15,118,110,0.06)]"
     >
-      <div className="flex items-center justify-around px-2 max-w-lg mx-auto">
+      <div className="flex items-center justify-around px-1 sm:px-2 max-w-lg mx-auto w-full">
         {tabs.map((tab) => {
           const Icon = tab.icon;
           const isActive = effectiveTab === tab.id;
@@ -44,7 +44,7 @@ export const BottomNavigation: React.FC<BottomNavigationProps> = ({
               key={tab.id}
               id={`nav-tab-${tab.id}`}
               onClick={() => onTabChange(tab.id)}
-              className={`relative flex flex-col items-center justify-center py-1.5 px-3 min-w-[56px] min-h-[48px] rounded-xl transition-all duration-200 active:scale-95 ${
+              className={`relative flex flex-col items-center justify-center py-1.5 px-1 sm:px-3 min-w-[46px] sm:min-w-[56px] min-h-[48px] rounded-xl transition-all duration-200 active:scale-95 ${
                 isActive
                   ? 'text-[#0F766E]'
                   : 'text-[#64748B] hover:text-[#12302D]'

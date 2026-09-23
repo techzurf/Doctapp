@@ -83,21 +83,21 @@ export const DuasScreen: React.FC<DuasScreenProps> = ({
   };
 
   return (
-    <div id="duas-screen" className="pb-24 pt-2 px-4 max-w-lg mx-auto space-y-4">
+    <div id="duas-screen" className="pb-24 pt-2 px-4 max-w-lg mx-auto w-full min-w-0 space-y-4">
       {/* Top Header */}
-      <div className="flex items-center gap-3 py-2">
+      <div className="flex items-center gap-3 py-2 w-full min-w-0">
         <button
           type="button"
           id="duas-back-btn"
           onClick={onBack}
-          className="p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-sm text-[#12302D] hover:bg-slate-50 transition-colors"
+          className="p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-sm text-[#12302D] hover:bg-slate-50 transition-colors shrink-0"
           aria-label="Go back"
         >
           <ArrowLeft className="w-4 h-4" />
         </button>
-        <div>
-          <h1 className="text-lg font-bold text-[#12302D]">Duas for Healing (Shifa)</h1>
-          <p className="text-xs text-slate-500">Authentic prophetic supplications</p>
+        <div className="min-w-0 flex-1">
+          <h1 className="text-lg font-bold text-[#12302D] truncate">Duas for Healing (Shifa)</h1>
+          <p className="text-xs text-slate-500 truncate">Authentic prophetic supplications</p>
         </div>
       </div>
 
@@ -114,7 +114,7 @@ export const DuasScreen: React.FC<DuasScreenProps> = ({
       </div>
 
       {/* Category Pills */}
-      <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
+      <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar w-full max-w-full">
         {categories.map((cat) => (
           <button
             key={cat}
@@ -227,7 +227,7 @@ export const DuasScreen: React.FC<DuasScreenProps> = ({
               </div>
 
               {/* Verified Source & Interactive Audio / Copy Bar */}
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+              <div className="pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2">
                 <div className="text-[10px] font-semibold text-slate-400 truncate max-w-[180px]">
                   📖 {dua.source}
                 </div>

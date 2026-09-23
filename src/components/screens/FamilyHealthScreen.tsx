@@ -10,7 +10,9 @@ import {
   ShieldCheck, 
   ChevronRight, 
   X,
-  Droplet
+  Droplet,
+  Edit2,
+  Trash2
 } from 'lucide-react';
 import { FamilyMember, Appointment, HealthRecord } from '../../types';
 
@@ -20,6 +22,8 @@ interface FamilyHealthScreenProps {
   healthRecords: HealthRecord[];
   onBack: () => void;
   onAddMember: (newMember: Omit<FamilyMember, 'id'>) => void;
+  onUpdateMember?: (updatedMember: FamilyMember) => void;
+  onDeleteMember?: (memberId: string) => void;
   onViewAppointment: (apt: Appointment) => void;
   onViewPrescription: (rxId: string) => void;
 }
@@ -30,11 +34,15 @@ export const FamilyHealthScreen: React.FC<FamilyHealthScreenProps> = ({
   healthRecords,
   onBack,
   onAddMember,
+  onUpdateMember,
+  onDeleteMember,
   onViewAppointment,
   onViewPrescription
 }) => {
   const [selectedMemberId, setSelectedMemberId] = useState(familyMembers[0]?.id || 'fam-1');
   const [showAddModal, setShowAddModal] = useState(false);
+  const [editingMember, setEditingMember] = useState<FamilyMember | null>(null);
+  const [memberToDelete, setMemberToDelete] = useState<FamilyMember | null>(null);
 
   // Form State for Add Member
   const [newName, setNewName] = useState('');
@@ -42,6 +50,14 @@ export const FamilyHealthScreen: React.FC<FamilyHealthScreenProps> = ({
   const [newAge, setNewAge] = useState('');
   const [newBloodGroup, setNewBloodGroup] = useState('B+ Positive');
   const [newAllergies, setNewAllergies] = useState('');
+
+  // Form State for Edit Member
+  const [editName, setEditName] = useState('');
+  const [editRelation, setEditRelation] = useState<'Myself' | 'Wife' | 'Son' | 'Daughter' | 'Mother' | 'Father'>('Son');
+  const [editAge, setEditAge] = useState('');
+  const [editBloodGroup, setEditBloodGroup] = useState('B+ Positive');
+  const [editAllergies, setEditAllergies] = useState('');
+  const [editChronic, setEditChronic] = useState('');
 
   const currentMember = familyMembers.find(f => f.id === selectedMemberId) || familyMembers[0];
 
@@ -196,6 +212,39 @@ export const FamilyHealthScreen: React.FC<FamilyHealthScreenProps> = ({
                 : 'None'}
             </span>
           </div>
+        </div>
+
+        {/* Member Actions: Edit & Delete Profile */}
+        <div className="pt-2 border-t border-slate-100 flex items-center justify-end gap-2">
+          <button
+            type="button"
+            id={`edit-member-btn-${currentMember.id}`}
+            onClick={() => {
+              setEditingMember(currentMember);
+              setEditName(currentMember.name);
+              setEditRelation(currentMember.relation);
+              setEditAge(currentMember.age.toString());
+              setEditBloodGroup(currentMember.bloodGroup);
+              setEditAllergies(currentMember.allergies?.join(', ') || '');
+              setEditChronic(currentMember.chronicConditions?.join(', ') || '');
+            }}
+            className="px-3 py-1.5 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-semibold flex items-center gap-1.5 transition-colors"
+          >
+            <Edit2 className="w-3.5 h-3.5 text-slate-500" />
+            <span>Edit Details</span>
+          </button>
+
+          {currentMember.relation !== 'Myself' && (
+            <button
+              type="button"
+              id={`delete-member-btn-${currentMember.id}`}
+              onClick={() => setMemberToDelete(currentMember)}
+              className="px-3 py-1.5 rounded-xl border border-rose-200 text-rose-600 hover:bg-rose-50 text-xs font-semibold flex items-center gap-1.5 transition-colors"
+            >
+              <Trash2 className="w-3.5 h-3.5 text-rose-500" />
+              <span>Remove</span>
+            </button>
+          )}
         </div>
       </div>
 
@@ -367,6 +416,204 @@ export const FamilyHealthScreen: React.FC<FamilyHealthScreenProps> = ({
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* EDIT MEMBER MODAL */}
+      {editingMember && (
+        <div 
+          onClick={() => setEditingMember(null)}
+          className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4"
+        >
+          <div 
+            onClick={(e) => e.stopPropagation()}
+            className="bg-white rounded-3xl p-5 w-full max-w-sm space-y-4 shadow-2xl animate-in zoom-in-95 max-h-[90vh] overflow-y-auto"
+          >
+            <div className="flex justify-between items-center pb-2 border-b border-slate-100">
+              <h3 className="text-sm font-bold text-[#12302D]">Edit Family Profile</h3>
+              <button 
+                type="button" 
+                onClick={() => setEditingMember(null)} 
+                className="text-slate-400 hover:text-slate-600 p-1"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (!editName.trim() || !editAge) return;
+                const updated: FamilyMember = {
+                  ...editingMember,
+                  name: editName.trim(),
+                  relation: editRelation,
+                  age: parseInt(editAge, 10),
+                  bloodGroup: editBloodGroup,
+                  allergies: editAllergies ? editAllergies.split(',').map(s => s.trim()).filter(Boolean) : [],
+                  chronicConditions: editChronic ? editChronic.split(',').map(s => s.trim()).filter(Boolean) : []
+                };
+                if (onUpdateMember) {
+                  onUpdateMember(updated);
+                }
+                setEditingMember(null);
+              }}
+              className="space-y-3"
+            >
+              <div>
+                <label className="block text-xs font-bold text-[#12302D] mb-1">Full Name</label>
+                <input
+                  type="text"
+                  value={editName}
+                  onChange={(e) => setEditName(e.target.value)}
+                  required
+                  className="w-full p-2.5 rounded-xl border border-slate-200 text-xs text-[#12302D] focus:outline-none focus:border-[#0F766E]"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <label className="block text-xs font-bold text-[#12302D] mb-1">Relationship</label>
+                  <select
+                    value={editRelation}
+                    onChange={(e) => setEditRelation(e.target.value as any)}
+                    className="w-full p-2.5 rounded-xl border border-slate-200 text-xs text-[#12302D] focus:outline-none"
+                  >
+                    <option value="Myself">Myself</option>
+                    <option value="Wife">Wife</option>
+                    <option value="Son">Son</option>
+                    <option value="Daughter">Daughter</option>
+                    <option value="Mother">Mother</option>
+                    <option value="Father">Father</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-[#12302D] mb-1">Age (Years)</label>
+                  <input
+                    type="number"
+                    value={editAge}
+                    onChange={(e) => setEditAge(e.target.value)}
+                    required
+                    min={1}
+                    max={110}
+                    className="w-full p-2.5 rounded-xl border border-slate-200 text-xs text-[#12302D] focus:outline-none"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-[#12302D] mb-1">Blood Group</label>
+                <select
+                  value={editBloodGroup}
+                  onChange={(e) => setEditBloodGroup(e.target.value)}
+                  className="w-full p-2.5 rounded-xl border border-slate-200 text-xs text-[#12302D] focus:outline-none"
+                >
+                  <option value="A+ Positive">A+ Positive</option>
+                  <option value="B+ Positive">B+ Positive</option>
+                  <option value="O+ Positive">O+ Positive</option>
+                  <option value="AB+ Positive">AB+ Positive</option>
+                  <option value="A- Negative">A- Negative</option>
+                  <option value="B- Negative">B- Negative</option>
+                  <option value="O- Negative">O- Negative</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-[#12302D] mb-1">Known Allergies (comma separated)</label>
+                <input
+                  type="text"
+                  value={editAllergies}
+                  onChange={(e) => setEditAllergies(e.target.value)}
+                  placeholder="e.g. Dust, Penicillin"
+                  className="w-full p-2.5 rounded-xl border border-slate-200 text-xs text-[#12302D] focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-[#12302D] mb-1">Chronic Conditions (comma separated)</label>
+                <input
+                  type="text"
+                  value={editChronic}
+                  onChange={(e) => setEditChronic(e.target.value)}
+                  placeholder="e.g. Hypertension, Asthma"
+                  className="w-full p-2.5 rounded-xl border border-slate-200 text-xs text-[#12302D] focus:outline-none"
+                />
+              </div>
+
+              <div className="flex gap-2 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setEditingMember(null)}
+                  className="flex-1 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="flex-1 py-2.5 rounded-xl bg-[#0F766E] text-white text-xs font-bold shadow-sm hover:bg-[#0D655E]"
+                >
+                  Save Changes
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* DELETE CONFIRMATION MODAL */}
+      {memberToDelete && (
+        <div 
+          onClick={() => setMemberToDelete(null)}
+          className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4"
+        >
+          <div 
+            onClick={(e) => e.stopPropagation()}
+            className="bg-white rounded-3xl p-5 w-full max-w-sm space-y-4 shadow-2xl animate-in zoom-in-95"
+          >
+            <div className="flex justify-between items-center pb-2 border-b border-slate-100">
+              <h3 className="text-sm font-bold text-rose-700">Remove Family Member</h3>
+              <button 
+                type="button" 
+                onClick={() => setMemberToDelete(null)} 
+                className="text-slate-400 hover:text-slate-600 p-1"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <p className="text-xs text-slate-600">
+              Are you sure you want to remove <strong>{memberToDelete.name}</strong> ({memberToDelete.relation}) from your family health circle?
+            </p>
+
+            <div className="flex gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => setMemberToDelete(null)}
+                className="flex-1 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  if (onDeleteMember) {
+                    onDeleteMember(memberToDelete.id);
+                  }
+                  if (selectedMemberId === memberToDelete.id) {
+                    const remaining = familyMembers.filter(m => m.id !== memberToDelete.id);
+                    if (remaining.length > 0) {
+                      setSelectedMemberId(remaining[0].id);
+                    }
+                  }
+                  setMemberToDelete(null);
+                }}
+                className="flex-1 py-2.5 rounded-xl bg-rose-600 text-white text-xs font-bold shadow-sm hover:bg-rose-700"
+              >
+                Remove Profile
+              </button>
+            </div>
           </div>
         </div>
       )}

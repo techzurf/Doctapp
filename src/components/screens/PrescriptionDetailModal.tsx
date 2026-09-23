@@ -18,14 +18,47 @@ interface PrescriptionDetailModalProps {
   onBack: () => void;
   onDownload?: () => void;
   onShare?: () => void;
+  onOrderMedicines?: () => void;
 }
 
 export const PrescriptionDetailModal: React.FC<PrescriptionDetailModalProps> = ({
   prescription,
   onBack,
   onDownload,
-  onShare
+  onShare,
+  onOrderMedicines
 }) => {
+  const [feedback, setFeedback] = React.useState<string | null>(null);
+
+  const showToast = (msg: string) => {
+    setFeedback(msg);
+    setTimeout(() => setFeedback(null), 3000);
+  };
+
+  const handleDownload = () => {
+    if (onDownload) {
+      onDownload();
+    } else {
+      showToast('Downloading verified PDF with doctor seal...');
+    }
+  };
+
+  const handleShare = () => {
+    if (onShare) {
+      onShare();
+    } else {
+      navigator.clipboard?.writeText(`ShifaCare E-Prescription #${prescription.id} from ${prescription.doctorName}`);
+      showToast('Prescription link copied for pharmacy!');
+    }
+  };
+
+  const handleOrder = () => {
+    if (onOrderMedicines) {
+      onOrderMedicines();
+    } else {
+      showToast('Order sent to partner halal pharmacy network! Dispatching shortly.');
+    }
+  };
   return (
     <div id="prescription-detail-modal" className="pb-24 pt-2 px-4 max-w-lg mx-auto space-y-4">
       {/* Header bar */}
@@ -50,7 +83,7 @@ export const PrescriptionDetailModal: React.FC<PrescriptionDetailModalProps> = (
           <button
             type="button"
             id="rx-download-btn"
-            onClick={onDownload || (() => alert('Downloading official PDF with doctor seal...'))}
+            onClick={handleDownload}
             className="p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-sm text-[#12302D] hover:bg-slate-50 transition-colors"
             aria-label="Download PDF"
           >
@@ -59,7 +92,7 @@ export const PrescriptionDetailModal: React.FC<PrescriptionDetailModalProps> = (
           <button
             type="button"
             id="rx-share-btn"
-            onClick={onShare || (() => alert('Prescription link copied for pharmacy!'))}
+            onClick={handleShare}
             className="p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-sm text-[#12302D] hover:bg-slate-50 transition-colors"
             aria-label="Share prescription"
           >
@@ -232,7 +265,7 @@ export const PrescriptionDetailModal: React.FC<PrescriptionDetailModalProps> = (
       <div className="pt-2 flex gap-3">
         <button
           type="button"
-          onClick={onDownload || (() => alert('Downloading PDF...'))}
+          onClick={handleDownload}
           className="flex-1 py-3 px-4 rounded-2xl bg-[#0F766E] hover:bg-[#0D655E] text-white text-xs font-bold shadow-md shadow-teal-900/15 flex items-center justify-center gap-2 active:scale-95 transition-all"
         >
           <Download className="w-4 h-4" />
@@ -241,12 +274,20 @@ export const PrescriptionDetailModal: React.FC<PrescriptionDetailModalProps> = (
 
         <button
           type="button"
-          onClick={() => alert('Order sent to partner halal pharmacy network!')}
+          onClick={handleOrder}
           className="flex-1 py-3 px-4 rounded-2xl bg-white border border-[#0F766E] text-[#0F766E] text-xs font-bold hover:bg-teal-50 flex items-center justify-center gap-2 active:scale-95 transition-all"
         >
           <span>Order Medicines</span>
         </button>
       </div>
+
+      {/* Floating feedback toast */}
+      {feedback && (
+        <div className="fixed bottom-10 left-1/2 -translate-x-1/2 z-50 bg-[#12302D] text-white px-4 py-2.5 rounded-full text-xs font-semibold shadow-xl flex items-center gap-2 animate-in fade-in slide-in-from-bottom-2">
+          <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+          <span>{feedback}</span>
+        </div>
+      )}
     </div>
   );
 };

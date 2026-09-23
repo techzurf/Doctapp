@@ -10,7 +10,10 @@ import {
   FileText, 
   CheckCircle2, 
   AlertCircle,
-  PhoneCall
+  PhoneCall,
+  MapPin,
+  Copy,
+  Check
 } from 'lucide-react';
 import { Appointment } from '../../types';
 
@@ -41,6 +44,10 @@ export const AppointmentsScreen: React.FC<AppointmentsScreenProps> = ({
   // Cancel Modal State
   const [cancellingApt, setCancellingApt] = useState<Appointment | null>(null);
   const [cancelReason, setCancelReason] = useState('Schedule conflict');
+
+  // Directions Modal State
+  const [viewingDirectionsApt, setViewingDirectionsApt] = useState<Appointment | null>(null);
+  const [copiedDirections, setCopiedDirections] = useState(false);
 
   const filteredAppointments = appointments.filter(a => a.status === activeTab);
 
@@ -201,7 +208,7 @@ export const AppointmentsScreen: React.FC<AppointmentsScreenProps> = ({
                       <button
                         type="button"
                         id={`clinic-directions-btn-${apt.id}`}
-                        onClick={() => alert(`Directions to ${apt.doctorClinic}: Anna Nagar West, Chennai`)}
+                        onClick={() => setViewingDirectionsApt(apt)}
                         className="flex-1 py-2.5 px-3 rounded-xl bg-[#0F766E] hover:bg-[#0D655E] text-white text-xs font-bold shadow-sm flex items-center justify-center gap-1.5 active:scale-95 transition-all"
                       >
                         <Building className="w-3.5 h-3.5" />
@@ -365,8 +372,14 @@ export const AppointmentsScreen: React.FC<AppointmentsScreenProps> = ({
 
       {/* CANCEL MODAL */}
       {cancellingApt && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl p-5 w-full max-w-sm space-y-4 shadow-2xl animate-in zoom-in-95">
+        <div 
+          onClick={() => setCancellingApt(null)}
+          className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4"
+        >
+          <div 
+            onClick={(e) => e.stopPropagation()}
+            className="bg-white rounded-3xl p-5 w-full max-w-sm space-y-4 shadow-2xl animate-in zoom-in-95"
+          >
             <div className="flex justify-between items-center pb-2 border-b border-slate-100">
               <h3 className="text-sm font-bold text-rose-700">Cancel Appointment</h3>
               <button onClick={() => setCancellingApt(null)} className="text-slate-400 p-1">
@@ -409,6 +422,90 @@ export const AppointmentsScreen: React.FC<AppointmentsScreenProps> = ({
                 className="flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold shadow-sm"
               >
                 Cancel Appointment
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* CLINIC DIRECTIONS MODAL */}
+      {viewingDirectionsApt && (
+        <div 
+          onClick={() => {
+            setViewingDirectionsApt(null);
+            setCopiedDirections(false);
+          }}
+          className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4"
+        >
+          <div 
+            onClick={(e) => e.stopPropagation()}
+            className="bg-white rounded-3xl p-5 w-full max-w-sm space-y-4 shadow-2xl animate-in zoom-in-95"
+          >
+            <div className="flex justify-between items-center pb-2 border-b border-slate-100">
+              <div className="flex items-center gap-2">
+                <Building className="w-4 h-4 text-[#0F766E]" />
+                <h3 className="text-sm font-bold text-[#12302D]">Clinic Location & Directions</h3>
+              </div>
+              <button 
+                onClick={() => {
+                  setViewingDirectionsApt(null);
+                  setCopiedDirections(false);
+                }} 
+                className="text-slate-400 p-1 hover:text-slate-600"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              <div>
+                <span className="text-[10px] font-bold text-[#0F766E] uppercase tracking-wider block">Clinic Center</span>
+                <h4 className="text-sm font-bold text-[#12302D]">{viewingDirectionsApt.doctorClinic}</h4>
+                <p className="text-xs text-slate-500 mt-0.5 flex items-start gap-1">
+                  <MapPin className="w-3.5 h-3.5 text-[#0F766E] shrink-0 mt-0.5" />
+                  <span>2nd Avenue, Near Shifa Medical Center, Anna Nagar, Chennai - 600040</span>
+                </p>
+              </div>
+
+              {/* Mock Map Preview Box */}
+              <div className="h-32 w-full rounded-2xl bg-teal-900/5 border border-teal-200/60 relative overflow-hidden flex flex-col items-center justify-center text-center p-3">
+                <div className="w-8 h-8 rounded-full bg-[#0F766E] text-white flex items-center justify-center shadow-md animate-bounce mb-1">
+                  <MapPin className="w-4 h-4" />
+                </div>
+                <span className="text-[11px] font-bold text-[#12302D]">{viewingDirectionsApt.doctorClinic}</span>
+                <span className="text-[10px] text-slate-500">12 mins away • 3.2 km via Poonamallee High Rd</span>
+              </div>
+
+              <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100 space-y-1 text-xs text-slate-600">
+                <span className="font-bold text-[#12302D] block">Landmarks & Parking</span>
+                <p>• Valet parking available at basement level.</p>
+                <p>• Opposite Jamia Masjid, Metro Station Pillar #142.</p>
+              </div>
+            </div>
+
+            <div className="flex gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => {
+                  navigator.clipboard?.writeText(`${viewingDirectionsApt.doctorClinic}, Anna Nagar, Chennai`);
+                  setCopiedDirections(true);
+                  setTimeout(() => setCopiedDirections(false), 2000);
+                }}
+                className="flex-1 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 flex items-center justify-center gap-1.5 active:scale-95 transition-all"
+              >
+                {copiedDirections ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+                <span>{copiedDirections ? 'Copied' : 'Copy Address'}</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setViewingDirectionsApt(null);
+                  setCopiedDirections(false);
+                }}
+                className="flex-1 py-2.5 rounded-xl bg-[#0F766E] text-white text-xs font-bold shadow-sm hover:bg-[#0D655E] active:scale-95 transition-all"
+              >
+                Done
               </button>
             </div>
           </div>

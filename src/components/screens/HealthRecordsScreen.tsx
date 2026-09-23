@@ -22,6 +22,8 @@ interface HealthRecordsScreenProps {
   onBack: () => void;
   onViewRecord: (record: HealthRecord) => void;
   onUploadRecord: (newRecord: HealthRecord) => void;
+  onDownloadRecord?: (record: HealthRecord) => void;
+  onShareRecord?: (record: HealthRecord) => void;
 }
 
 export const HealthRecordsScreen: React.FC<HealthRecordsScreenProps> = ({
@@ -29,17 +31,26 @@ export const HealthRecordsScreen: React.FC<HealthRecordsScreenProps> = ({
   familyMembers,
   onBack,
   onViewRecord,
-  onUploadRecord
+  onUploadRecord,
+  onDownloadRecord,
+  onShareRecord
 }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedFamilyFilter, setSelectedFamilyFilter] = useState<string>('All');
   const [showUploadModal, setShowUploadModal] = useState(false);
+  const [previewingRecord, setPreviewingRecord] = useState<HealthRecord | null>(null);
+  const [feedbackBanner, setFeedbackBanner] = useState<string | null>(null);
 
   // Upload Form State
   const [uploadTitle, setUploadTitle] = useState('');
   const [uploadCategory, setUploadCategory] = useState<'Prescriptions' | 'Lab Reports' | 'Scans' | 'Vaccines'>('Lab Reports');
   const [uploadDoctorOrLab, setUploadDoctorOrLab] = useState('');
   const [uploadPatientId, setUploadPatientId] = useState(familyMembers[0]?.id || 'fam-1');
+
+  const showLocalFeedback = (msg: string) => {
+    setFeedbackBanner(msg);
+    setTimeout(() => setFeedbackBanner(null), 3000);
+  };
 
   const categories = ['All', 'Prescriptions', 'Lab Reports', 'Scans', 'Vaccines'];
 
@@ -201,7 +212,13 @@ export const HealthRecordsScreen: React.FC<HealthRecordsScreenProps> = ({
                 <button
                   type="button"
                   id={`view-rec-${rec.id}`}
-                  onClick={() => onViewRecord(rec)}
+                  onClick={() => {
+                    if (rec.prescriptionId) {
+                      onViewRecord(rec);
+                    } else {
+                      setPreviewingRecord(rec);
+                    }
+                  }}
                   className="flex-1 py-2 px-3 rounded-xl bg-[#0F766E] hover:bg-[#0D655E] text-white text-xs font-bold shadow-2xs flex items-center justify-center gap-1.5 active:scale-95 transition-all"
                 >
                   <Eye className="w-3.5 h-3.5" />
@@ -211,7 +228,13 @@ export const HealthRecordsScreen: React.FC<HealthRecordsScreenProps> = ({
                 <button
                   type="button"
                   id={`download-rec-${rec.id}`}
-                  onClick={() => alert(`Downloading ${rec.title} (PDF)...`)}
+                  onClick={() => {
+                    if (onDownloadRecord) {
+                      onDownloadRecord(rec);
+                    } else {
+                      showLocalFeedback(`Downloading ${rec.title} (PDF)... Saved to device`);
+                    }
+                  }}
                   className="p-2 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 active:scale-95 transition-all"
                   aria-label="Download document"
                 >
@@ -221,7 +244,14 @@ export const HealthRecordsScreen: React.FC<HealthRecordsScreenProps> = ({
                 <button
                   type="button"
                   id={`share-rec-${rec.id}`}
-                  onClick={() => alert(`Document link copied for ${rec.title}`)}
+                  onClick={() => {
+                    if (onShareRecord) {
+                      onShareRecord(rec);
+                    } else {
+                      navigator.clipboard?.writeText(`ShifaCare Medical Record: ${rec.title} - ${rec.doctorOrLab}`);
+                      showLocalFeedback(`Secure record link copied to clipboard`);
+                    }
+                  }}
                   className="p-2 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 active:scale-95 transition-all"
                   aria-label="Share document"
                 >
@@ -338,6 +368,104 @@ export const HealthRecordsScreen: React.FC<HealthRecordsScreenProps> = ({
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Floating feedback toast */}
+      {feedbackBanner && (
+        <div className="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 bg-[#12302D] text-white px-4 py-2.5 rounded-full text-xs font-semibold shadow-xl flex items-center gap-2 animate-in fade-in slide-in-from-bottom-2">
+          <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+          <span>{feedbackBanner}</span>
+        </div>
+      )}
+
+      {/* DOCUMENT PREVIEW MODAL */}
+      {previewingRecord && (
+        <div 
+          onClick={() => setPreviewingRecord(null)}
+          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4"
+        >
+          <div 
+            onClick={(e) => e.stopPropagation()}
+            className="bg-white rounded-3xl p-5 w-full max-w-sm space-y-4 shadow-2xl animate-in zoom-in-95 max-h-[90vh] overflow-y-auto"
+          >
+            <div className="flex justify-between items-center pb-2 border-b border-slate-100">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-teal-50 text-[#0F766E] flex items-center justify-center">
+                  <FileText className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="text-xs font-bold text-[#12302D] truncate">{previewingRecord.title}</h3>
+                  <span className="text-[10px] text-slate-400">{previewingRecord.date} • {previewingRecord.category}</span>
+                </div>
+              </div>
+              <button 
+                type="button"
+                onClick={() => setPreviewingRecord(null)} 
+                className="text-slate-400 hover:text-slate-600 p-1"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Document details sheet */}
+            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-3 text-xs">
+              <div className="flex justify-between items-start pb-2 border-b border-slate-200">
+                <div>
+                  <span className="text-[10px] text-slate-400 font-semibold block uppercase">Patient</span>
+                  <span className="font-bold text-[#12302D]">{previewingRecord.patientName}</span>
+                </div>
+                <div className="text-right">
+                  <span className="text-[10px] text-slate-400 font-semibold block uppercase">Lab / Provider</span>
+                  <span className="font-bold text-[#0F766E]">{previewingRecord.doctorOrLab}</span>
+                </div>
+              </div>
+
+              <div>
+                <span className="text-[10px] text-slate-400 font-semibold block uppercase mb-1">Clinical Findings</span>
+                <p className="text-xs text-slate-700 bg-white p-2.5 rounded-xl border border-slate-100">
+                  {previewingRecord.summary || 'All tested clinical parameters are within normal physiological reference ranges. No acute pathological abnormalities identified.'}
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2 text-[11px]">
+                <div className="bg-white p-2 rounded-xl border border-slate-100">
+                  <span className="text-slate-400 block text-[9px] uppercase font-bold">Verification</span>
+                  <span className="text-emerald-700 font-bold">✓ Certified Valid</span>
+                </div>
+                <div className="bg-white p-2 rounded-xl border border-slate-100">
+                  <span className="text-slate-400 block text-[9px] uppercase font-bold">File Size</span>
+                  <span className="font-semibold text-slate-700">{previewingRecord.fileSize} (PDF)</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex gap-2 pt-1">
+              <button
+                type="button"
+                onClick={() => {
+                  showLocalFeedback(`Downloading ${previewingRecord.title}...`);
+                  setPreviewingRecord(null);
+                }}
+                className="flex-1 py-2.5 rounded-xl bg-[#0F766E] text-white text-xs font-bold shadow-sm hover:bg-[#0D655E] flex items-center justify-center gap-1.5"
+              >
+                <Download className="w-3.5 h-3.5" />
+                <span>Save to Phone</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  showLocalFeedback(`Document link copied`);
+                  setPreviewingRecord(null);
+                }}
+                className="py-2.5 px-3 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-semibold flex items-center justify-center"
+                aria-label="Share"
+              >
+                <Share2 className="w-3.5 h-3.5" />
+              </button>
+            </div>
           </div>
         </div>
       )}

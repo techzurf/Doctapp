@@ -277,6 +277,17 @@ export default function App() {
     showToast(`Added ${member.name} (${member.relation}) to family health profile`);
   };
 
+  const handleUpdateFamilyMember = (updatedMember: FamilyMember) => {
+    setFamilyMembers(prev => prev.map(m => m.id === updatedMember.id ? updatedMember : m));
+    showToast(`Updated ${updatedMember.name}'s profile`);
+  };
+
+  const handleDeleteFamilyMember = (memberId: string) => {
+    const member = familyMembers.find(m => m.id === memberId);
+    setFamilyMembers(prev => prev.filter(m => m.id !== memberId));
+    showToast(`Removed ${member?.name || 'profile'} from family circle`);
+  };
+
   const handleUploadRecord = (newRecord: HealthRecord) => {
     setHealthRecords(prev => [newRecord, ...prev]);
     showToast(`Uploaded "${newRecord.title}" successfully`);
@@ -430,6 +441,10 @@ export default function App() {
               <ProfileScreen
                 onNavigateToFamily={() => navigateTo('family_health')}
                 onNavigateToRecords={() => navigateTo('health_records')}
+                onNavigateToAppointments={() => {
+                  setActiveTab('appointments');
+                  setCurrentScreen('main');
+                }}
                 onNavigateToSavedDoctors={() => {
                   setSelectedSpecialtyFilter(null);
                   setActiveTab('doctors');
@@ -531,6 +546,8 @@ export default function App() {
           healthRecords={healthRecords}
           onBack={navigateBack}
           onAddMember={handleAddFamilyMember}
+          onUpdateMember={handleUpdateFamilyMember}
+          onDeleteMember={handleDeleteFamilyMember}
           onViewAppointment={(apt) => {
             setSelectedAppointment(apt);
             setActiveTab('appointments');

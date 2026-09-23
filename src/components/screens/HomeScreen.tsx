@@ -15,7 +15,8 @@ import {
   HeartHandshake, 
   Video, 
   Clock, 
-  ShieldCheck 
+  ShieldCheck,
+  Heart 
 } from 'lucide-react';
 import { Doctor, FamilyMember, Appointment } from '../../types';
 
@@ -40,12 +41,15 @@ export interface HomeScreenProps {
   onNavigateToRamadan?: () => void;
   onNavigateToHajj?: () => void;
   onNavigateToHealthRecords?: () => void;
+  onNavigateToIslamicWellness?: () => void;
   onJoinConsultation?: (appointment: Appointment) => void;
   onViewAllDoctors?: () => void;
   onSelectSpecialty?: (specialty: string) => void;
   onOpenFamilyMember?: (member: FamilyMember) => void;
   onAddFamilyMember?: () => void;
   onViewAppointment?: (appointment: Appointment) => void;
+  onToggleSaveDoctor?: (doctor: Doctor) => void;
+  savedDoctorIds?: string[];
 }
 
 export const HomeScreen: React.FC<HomeScreenProps> = ({
@@ -69,12 +73,15 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
   onNavigateToRamadan,
   onNavigateToHajj,
   onNavigateToHealthRecords,
+  onNavigateToIslamicWellness,
   onJoinConsultation,
   onViewAllDoctors,
   onSelectSpecialty,
   onOpenFamilyMember = () => {},
   onAddFamilyMember = () => {},
-  onViewAppointment = () => {}
+  onViewAppointment = () => {},
+  onToggleSaveDoctor,
+  savedDoctorIds = []
 }) => {
   const resolvedUpcoming = upcomingAppointment || appointments?.find(a => a.status === 'upcoming');
   const handleDoctorsNav = onNavigateDoctors || onViewAllDoctors || (() => {});
@@ -90,8 +97,12 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
       onNavigateToRamadan();
     } else if (topic === 'hajj' && onNavigateToHajj) {
       onNavigateToHajj();
+    } else if (onNavigateToIslamicWellness) {
+      onNavigateToIslamicWellness();
     } else if (onOpenWellness) {
       onOpenWellness(topic);
+    } else if (onNavigateToDuas) {
+      onNavigateToDuas();
     }
   };
   return (
@@ -323,17 +334,33 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                 <span className="text-xs font-bold text-[#12302D]">
                   ₹{doctor.fee}
                 </span>
-                <button
-                  type="button"
-                  id={`quick-book-btn-${doctor.id}`}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleBook(doctor);
-                  }}
-                  className="px-3.5 py-1.5 rounded-xl bg-[#0F766E] hover:bg-[#0D655E] text-white text-xs font-semibold shadow-sm active:scale-95 transition-all"
-                >
-                  Book
-                </button>
+                <div className="flex items-center gap-1.5">
+                  {onToggleSaveDoctor && (
+                    <button
+                      type="button"
+                      id={`home-save-doctor-btn-${doctor.id}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onToggleSaveDoctor(doctor);
+                      }}
+                      className="p-1.5 rounded-lg border border-slate-200 text-slate-400 hover:text-rose-500 hover:border-rose-200 transition-colors"
+                      aria-label="Save doctor"
+                    >
+                      <Heart className={`w-3.5 h-3.5 ${savedDoctorIds.includes(doctor.id) ? 'fill-rose-500 text-rose-500' : ''}`} />
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    id={`quick-book-btn-${doctor.id}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleBook(doctor);
+                    }}
+                    className="px-3.5 py-1.5 rounded-xl bg-[#0F766E] hover:bg-[#0D655E] text-white text-xs font-semibold shadow-sm active:scale-95 transition-all"
+                  >
+                    Book
+                  </button>
+                </div>
               </div>
             </div>
           ))}
